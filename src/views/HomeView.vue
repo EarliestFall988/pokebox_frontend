@@ -1,10 +1,6 @@
-<script setup>
-import { RouterLink } from 'vue-router'
-</script>
-
 <template>
   <main>
-    <div class="hero min-h-full bg-base-200">
+    <div class="hero min-h-full bg-base-200 z-20">
       <div class="hero-content flex-col lg:flex-row">
         <img
           src="https://www.netclipart.com/pp/f/6-66352_transparent-background-pokemon-clipart-pokemon-character-clip-art.png"
@@ -17,31 +13,31 @@ import { RouterLink } from 'vue-router'
             Pokébox.zone for their Pokémon needs. Are you ready?
           </p>
 
-          <button class="btn btn-primary">
-            <RouterLink to="/login">Push This Button!</RouterLink>
-          </button>
+          <!-- <button class="btn btn-primary"> -->
+            <RouterLink class="btn btn-primary " to="/register">Push This Button!</RouterLink>
+          <!-- </button> -->
         </div>
         <div class="my-20 lg:my-80"></div>
       </div>
     </div>
     <div>
       <div
-        class="flex flex-wrap justify-around md:m-20 p-5 md:p-20 items-center bg-accent md:rounded shadow b"
+        class="flex flex-wrap justify-around md:my-20 p-5 md:py-20 items-center bg-accent md:rounded shadow b"
       >
         <div class="my-5 mx-2">
           <h3 class="text-3xl font-bold text-white">Live Feed Activity</h3>
-          <p class="text-white">See why Pokébox.zone is all the rage</p>
+          <p class="text-white">Cold, hard data about why Pokébox.zone is all the rage</p>
         </div>
         <div class="stats">
           <div class="stat place-items-center">
             <div class="stat-title">Downloads</div>
-            <div class="stat-value">31K</div>
-            <div class="stat-desc">From January 1st to February 1st</div>
+            <div class="stat-value">{{ downloadCount }}</div>
+            <div class="stat-desc">From January 1 to {{ date }}</div>
           </div>
 
           <div class="stat place-items-center">
             <div class="stat-title">Users</div>
-            <div class="stat-value text-secondary">4,200</div>
+            <div class="stat-value text-secondary">{{ userCount }}</div>
             <div class="stat-desc text-secondary">↗︎ 40 (2%)</div>
           </div>
           <div class="stat place-items-center">
@@ -71,6 +67,46 @@ import { RouterLink } from 'vue-router'
           class="rounded-lg"
         />
       </div>
+      <div class="text-3xl text-center mt-10 text-white">Pricing</div>
+      <div class="flex flex-wrap md:m-5 justify-around items-center bg-accent rounded-lg py-10 text-white">
+        <div class="w-3/12 h-96 rounded-lg p-2">
+          <div class="text-center text-lg font-bold m-4">Starter Pack</div>
+          <div class="w-6/12 m-auto h-60">
+            <div class="flex flex-col items-center">
+              <p class="my-2">Access to your pokemon</p>
+              <p class="my-2">Join Clans</p>
+              <p class="my-2">Delete your account</p>
+              <p class="my-2">No Credit Card Needed</p>
+            </div>
+          </div>
+          <p class="text-center mt-5 text-2xl font-bold">$0</p>
+        </div>
+        <div class="w-3/12 h-96 rounded-lg p-2 bg-primary shadow-lg">
+          <div class="text-center text-lg font-bold m-4">Recommended</div>
+          <div class="w-6/12 m-auto h-60">
+            <div class="flex flex-col items-center">
+              <p class="my-2">Access to your pokemon</p>
+              <p class="my-2">Join Clans</p>
+              <p class="my-2">Delete your account</p>
+              <p class="my-2">Create and manage clans</p>
+            </div>
+          </div>
+          <p class="text-center mt-5 text-2xl font-bold">$20</p>
+        </div>
+        <div class="w-3/12 h-96 rounded-lg p-2">
+          <div class="text-center text-lg font-bold m-4">Enterprise</div>
+          <div class="w-6/12 m-auto h-60">
+            <div class="flex flex-col items-center">
+              <p class="my-2">Access to your pokemon</p>
+              <p class="my-2">Join Clans</p>
+              <p class="my-2">Delete your account</p>
+              <p class="my-2">Create and manage clans</p>
+              <p class="my-2">24hr tech support</p>
+            </div>
+          </div>
+          <p class="text-center mt-5 text-2xl font-bold">$150</p>
+        </div>
+      </div>
       <div class="flex md:justify-end m-20">
         <button class="btn btn-primary text-white shadow">
           <RouterLink to="/login">Check it out now!</RouterLink>
@@ -79,3 +115,46 @@ import { RouterLink } from 'vue-router'
     </div>
   </main>
 </template>
+
+<script setup>
+import { RouterLink } from 'vue-router'
+import { ref, computed } from 'vue'
+
+const date = computed(() => {
+  var today = new Date()
+  var dd = String(today.getDate()).padStart(2, '0')
+  var mm = String(today.getMonth() + 1).padStart(2, '0') //January is 0!
+  var yyyy = today.getFullYear()
+
+  const monthNames = [
+    'January',
+    'February',
+    'March',
+    'April',
+    'May',
+    'June',
+    'July',
+    'August',
+    'September',
+    'October',
+    'November',
+    'December'
+  ]
+
+  today = monthNames[parseInt(mm - 1)] + ' ' + dd
+
+  return today
+})
+
+const userCount = computed(() => {
+  return Math.ceil(Math.random() * (1000 - 100) + 1000)
+})
+
+const downloadCount = computed(() => {
+  return (
+    Math.ceil(Math.random() * (9000 - 100) + 10000)
+      .toString()
+      .substring(0, 2) + 'K'
+  )
+})
+</script>
