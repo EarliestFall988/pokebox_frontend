@@ -44,16 +44,22 @@
 </template>
 
 <script setup>
-import { RouterLink } from 'vue-router'
+// import { createRouter } from 'vue-router'
 import { ref } from 'vue'
+
+import { useUserStore } from '../stores/User';
+
+const user = useUserStore.user
 
 const Email = ref('')
 const Password = ref('')
 
+const errorText = ref('')
+
 let attemptLogin = async () => {
   console.log('attempting login')
 
-  await fetch('http://localhost:4000/api/v1/session', {
+  await fetch('https://localhost:7071/api/v1/login', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
@@ -72,11 +78,14 @@ let attemptLogin = async () => {
           if (data.error.message) errorText.value = data.error.message
           else errorText.value = data.error
         } else {
+
+          user.token = data.session
+          user.email = data.email
           // errorText.value = 'Success!'
-          user.user.email = Email.value
-          user.token.accessToken = data.data.access_token
-          user.token.renewalToken = data.data.renewal_token
-          router.push('/')
+          // user.user.email = Email.value
+          // user.token.accessToken = data.data.access_token
+          // user.token.renewalToken = data.data.renewal_token
+          this.$router.push('/')
         }
       })
     })
