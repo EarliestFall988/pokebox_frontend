@@ -69,9 +69,9 @@
       </div>
       <div class="text-3xl text-center mt-10 text-white">Pricing</div>
       <div class="flex flex-wrap md:m-5 justify-around items-center bg-accent rounded-lg py-10 text-white">
-        <div class="w-3/12 h-96 rounded-lg p-2">
+        <div class="w-60 h-96 rounded-lg p-2">
           <div class="text-center text-lg font-bold m-4">Starter Pack</div>
-          <div class="w-6/12 m-auto h-60">
+          <div class="w-60 m-auto h-60">
             <div class="flex flex-col items-center">
               <p class="my-2">Access to your pokemon</p>
               <p class="my-2">Join Clans</p>
@@ -81,9 +81,9 @@
           </div>
           <p class="text-center mt-5 text-2xl font-bold">$0</p>
         </div>
-        <div class="w-3/12 h-96 rounded-lg p-2 bg-primary shadow-lg">
+        <div class="w-60 h-96 rounded-lg p-2 bg-primary shadow-lg">
           <div class="text-center text-lg font-bold m-4">Recommended</div>
-          <div class="w-6/12 m-auto h-60">
+          <div class="w-60 m-auto h-60">
             <div class="flex flex-col items-center">
               <p class="my-2">Access to your pokemon</p>
               <p class="my-2">Join Clans</p>
@@ -93,9 +93,9 @@
           </div>
           <p class="text-center mt-5 text-2xl font-bold">$20</p>
         </div>
-        <div class="w-3/12 h-96 rounded-lg p-2">
+        <div class="w-60 h-96 rounded-lg p-2">
           <div class="text-center text-lg font-bold m-4">Enterprise</div>
-          <div class="w-6/12 m-auto h-60">
+          <div class="w-60 m-auto h-60">
             <div class="flex flex-col items-center">
               <p class="my-2">Access to your pokemon</p>
               <p class="my-2">Join Clans</p>
