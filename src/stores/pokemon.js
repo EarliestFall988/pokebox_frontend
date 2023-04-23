@@ -29,7 +29,7 @@ export const usePokemonStore = defineStore('pokemon', () => {
       id: 4,
       name: 'Charmeleon',
       img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/5.png'
-    }
+    },
     {
       id: 5,
       name: 'Charizard',
@@ -1700,11 +1700,7 @@ export const usePokemonStore = defineStore('pokemon', () => {
       name: 'Cacturne',
       img: 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/332.png'
     },
-    
-
-
-
-    
+  ])
 
   return { pokemon }
 

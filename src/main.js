@@ -27,6 +27,7 @@ import { faMoon } from '@fortawesome/free-solid-svg-icons'
 import { faShieldAlt } from '@fortawesome/free-solid-svg-icons'
 import { faStar } from '@fortawesome/free-solid-svg-icons'
 import { faHillRockslide } from '@fortawesome/free-solid-svg-icons'
+import { faX } from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
@@ -56,6 +57,8 @@ library.add(faMoon)
 library.add(faShieldAlt)
 library.add(faStar)
 library.add(faHillRockslide)
+
+library.add(faX)
 
 
 import App from './App.vue'

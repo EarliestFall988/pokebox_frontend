@@ -37,17 +37,24 @@ export default {
     // const level = ref(14)
 
     const selectedPokemon = ref({
-      name: 'Britney Spirs',
+      name: 'Pretzels',
       userName: 'j.houser133@hotmail.co.uk',
       gender: 'male',
-      species: 'charmander',
-      description: 'this charmander is a fire type and is level 14',
-      element1: 'fire',
-      element2: 'poison',
+      species: 'pikachu',
+      description: 'A trainer was walking in the forest with his Pikachu, when he saw a pink flash in the bushes. He thought it might be a rare Mew, so he ran towards it with his Pokeball. He threw the Pokeball at the pink shape, hoping to catch it. But instead of hearing a click, he heard a loud roar. He realized too late that he had thrown his Pokeball at a Snorlax that was sleeping under a pink blanket. The Snorlax woke up angry and chased the trainer and his Pikachu away. The trainer never saw the Mew again.',
+      element1: 'electric',
+      element2: '',
       level: 14
     })
 
     const img = ref(null)
+
+    const seeAllDescription = ref(true)
+
+    const toggleDescription = () => {
+      seeAllDescription.value = !seeAllDescription.value
+    }
+
     const imgResponse = await fetch(
       'https://pokeapi.co/api/v2/pokemon/' + selectedPokemon.value.species
     )
@@ -57,6 +64,8 @@ export default {
 
     return {
       selectedPokemon,
+      seeAllDescription,
+      toggleDescription,
       img
     }
   }
@@ -81,17 +90,29 @@ export default {
 
           <div class="mr-2">
             <div v-if="selectedPokemon.name">
-              <p class="text-lg font-bold">{{ selectedPokemon.name }}</p>
+              <p class="text-lg font-bold -m-1">{{ selectedPokemon.name }}</p>
             </div>
-            <p class="ml-4 text-sm">({{ selectedPokemon.species }})</p>
+            <p class="text-sm">({{ selectedPokemon.species }})</p>
             <div class="my-2" />
             <GenderIcons :gender="selectedPokemon.gender" />
           </div>
         </div>
-        <p class="italic text-sm my-3">{{ selectedPokemon.description }}</p>
+        <p class="text-lg font-bold  italic">lvl.{{ selectedPokemon.level }}</p>
       </div>
       <div class="flex justify-between items-center w-full">
-        <p class="text-lg italic">lvl.{{ selectedPokemon.level }}</p>
+        <div>
+          <h3 class="-mb-4 mt-2 text-primary text-lg w-full text-center">Lore about {{ selectedPokemon.name }}</h3>
+          <div v-if="seeAllDescription">
+            <p class="italic w-60 h-5 text-sm my-3 text-info text-ellipsis overflow-hidden truncate">{{
+              selectedPokemon.description }}</p>
+            <button @click="toggleDescription()" class="btn btn-outline">See More...</button>
+          </div>
+          <div v-else>
+            <p class="italic w-60 text-sm my-3 text-info ">{{
+              selectedPokemon.description }}</p>
+            <button @click="toggleDescription" class="btn btn-outline">Show Less</button>
+          </div>
+        </div>
       </div>
     </div>
     <div>

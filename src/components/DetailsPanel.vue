@@ -1,14 +1,11 @@
 <template>
-  <div class="bg-base-200 p-4 m-1 rounded-2xl">
-    <div>
-      <h3 class="text-white text-2xl font-bold -mb-2">Selected Pokemon</h3>
-      <p class="mb-3 text-accent">Let's see what you've got</p>
-    </div>
+  <PanelView title="Selected Pokemon" description="Let's see what you've got">
     <Transition name="slide" mode="out-in" appear>
       <KeepAlive>
         <Suspense>
           <template #default>
-            <AsyncPokemonDetailsController name="jeff" userName="ltd.houser137@hotmail.co.uk" gender="male" species="Squirtle" />
+            <AsyncPokemonDetailsController name="jeff" userName="ltd.houser137@hotmail.co.uk" gender="male"
+              species="Squirtle" />
           </template>
           <template #fallback>
             <div class="flex flex-col justify-center items-center mt-5 w-64 h-64">
@@ -17,14 +14,15 @@
             </div>
           </template>
         </Suspense>
-      </KeepAlive> 
+      </KeepAlive>
     </Transition>
-  </div>
+  </PanelView>
 </template>
 
 <script setup>
 import AsyncPokemonDetailsController from '../components/AsyncPokemonDetailsController.vue'
 import LoadingSpinnerView from '../components/LoadingSpinnerView.vue'
+import PanelView from './PanelView.vue';
 </script>
 
 <style scoped>
