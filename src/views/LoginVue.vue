@@ -31,11 +31,15 @@
           </div>
           <div class="form-control mt-6">
             <button
+              v-if="!loading"
               @click.prevent="attemptLogin"
               class="btn btn-primary bg-gradient-to-bl text-white font-bold from-blue-600 via-purple-500 to-red-400 border-0"
             >
               let Me In
             </button>
+            <div v-else>
+            <SpinnerComponent/>
+            </div>
           </div>
         </div>
       </div>
@@ -46,18 +50,23 @@
 <script setup>
 // import { createRouter } from 'vue-router'
 import { ref } from 'vue'
+import router from '../router'
+import SpinnerComponent from '../components/SpinnerComponent.vue'
+import { useUserStore } from '../stores/User'
 
-import { useUserStore } from '../stores/User';
-
-const user = useUserStore.user
+const user = useUserStore().user
 
 const Email = ref('')
 const Password = ref('')
 
 const errorText = ref('')
 
+const loading = ref(false)
+
 let attemptLogin = async () => {
   console.log('attempting login')
+
+  loading.value = true
 
   await fetch('https://localhost:7071/api/v1/login', {
     method: 'POST',
@@ -78,17 +87,15 @@ let attemptLogin = async () => {
           if (data.error.message) errorText.value = data.error.message
           else errorText.value = data.error
         } else {
-
           user.token = data.session
           user.email = data.email
-          // errorText.value = 'Success!'
-          // user.user.email = Email.value
-          // user.token.accessToken = data.data.access_token
-          // user.token.renewalToken = data.data.renewal_token
-          this.$router.push('/')
+
+          router.push('/')
         }
       })
     })
     .catch((err) => console.log(err))
+
+  loading.value = false
 }
 </script>
