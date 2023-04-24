@@ -20,7 +20,7 @@
         <TransitionGroup
           name="list"
           tag="div"
-          class="grid grid-cols-3 lg:grid-cols-10 font-bold text-sm"
+          class="grid grid-cols-3 lg:grid-cols-8 font-bold text-sm"
         >
           <IconLoader v-for="p in pokemon" :key="p.id" :url="p.img" :name="p.name" class="m-2" />
         </TransitionGroup>
