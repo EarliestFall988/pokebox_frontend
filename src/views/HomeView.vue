@@ -109,7 +109,7 @@
       </div>
       <div class="flex md:justify-end m-20">
         <button class="btn btn-primary text-white shadow">
-          <RouterLink to="/login">Check it out now!</RouterLink>
+          <RouterLink to="/register">Check it out now!</RouterLink>
         </button>
       </div>
     </div>

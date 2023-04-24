@@ -48,9 +48,9 @@ onMounted(() => {
     </div>
   </header>
   <router-view v-slot="{ Component, route }">
-    <transition :name="route.meta.transition || 'fade'" >
+    <!-- <transition :name="route.meta.transition || 'fade'" > -->
       <component :is="Component" />
-    </transition>
+    <!-- </transition> -->
   </router-view>
   <footer class="footer footer-center p-10 bg-base-200 text-base-content rounded">
     <div class="grid grid-flow-col gap-4">

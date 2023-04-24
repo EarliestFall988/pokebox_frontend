@@ -45,6 +45,11 @@ const router = createRouter({
       name: 'pokemon',
       component: () => import('../views/PokemonView.vue'),
       meta: { transition: 'slide'}
+    },
+    {
+      path: '/dashboard',
+      name: 'dashboard',
+      component: () => import('../views/DashboardView.vue'),
     }
   ]
 })
