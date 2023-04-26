@@ -23,22 +23,24 @@
               placeholder="password"
               class="input input-bordered"
             />
-            <label class="label">
-              <RouterLink to="/forgotpassword" class="label-text-alt italic link link-hover"
-                >Forgot password?</RouterLink
-              >
-            </label>
           </div>
+          <p class="text-error text-center italic">{{ errorText }}</p>
           <div class="form-control mt-6">
             <button
-              v-if="!loading"
               @click.prevent="attemptLogin"
-              class="btn btn-primary bg-gradient-to-bl text-white font-bold from-blue-600 via-purple-500 to-red-400 border-0"
+              class="btn btn-primary bg-gradient-to-bl text-white font-bold from-blue-600 via-purple-500 to-red-400 border-0 hover:scale-110"
             >
-              let Me In
+              <div v-if="!loading">let Me In</div>
+              <div v-else>
+                <LoadingSpinnerView class="scale-100 translate-y-1" />
+              </div>
             </button>
-            <div v-else>
-            <SpinnerComponent/>
+            <div class="label mt-2">
+              <RouterLink
+                to="/forgotpassword"
+                class="w-full text-center label-text-alt italic link link-hover"
+                >Forgot password?</RouterLink
+              >
             </div>
           </div>
         </div>
@@ -53,6 +55,7 @@ import { ref } from 'vue'
 import router from '../router'
 import SpinnerComponent from '../components/SpinnerComponent.vue'
 import { useUserStore } from '../stores/User'
+import LoadingSpinnerView from '../components/LoadingSpinnerView.vue'
 
 const user = useUserStore().user
 
@@ -67,6 +70,10 @@ let attemptLogin = async () => {
   console.log('attempting login')
 
   loading.value = true
+  errorText.value = ''
+
+  const em = Email.value
+  const pass = Password.value
 
   await fetch('https://localhost:7071/api/v1/login', {
     method: 'POST',
@@ -75,26 +82,26 @@ let attemptLogin = async () => {
     },
     body: JSON.stringify({
       user: {
-        email: Email.value,
-        password: Password.value
+        email: em,
+        password: pass
       }
     })
   })
     .then((response) => {
       response.json().then((data) => {
         console.log(data)
-        if (data.error) {
-          if (data.error.message) errorText.value = data.error.message
-          else errorText.value = data.error
+        if (data.err) {
+          if (data.err) errorText.value = data.err
+          else errorText.value = data.err
         } else {
-          user.token = data.session
+          user.session = data.session
           user.email = data.email
 
           router.push('/')
         }
       })
     })
-    .catch((err) => console.log(err))
+    .catch((err) => console.log('Error' + err))
 
   loading.value = false
 }

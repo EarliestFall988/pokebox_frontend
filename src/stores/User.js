@@ -1,14 +1,20 @@
-import { ref, computed } from 'vue'
+import { ref, computed, toRaw } from 'vue'
 import { defineStore } from 'pinia'
+import { useSessionStorage } from '@vueuse/core'
+import { onUnmounted } from 'vue'
 
-export const useUserStore = defineStore('user', () => {
-  const user = ref({
-    username: '',
-    email: '',
-    firstName: '',
-    lastName: '',
-    session: ''
-  })
+export const useUserStore = defineStore(
+  'user',
+  () => {
+    const user = ref({
+      username: '',
+      email: '',
+      firstName: '',
+      lastName: '',
+      session: ''
+    })
 
-  return { user }
-})
+    return { user }
+  },
+  { persist: true }
+)

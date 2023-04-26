@@ -43,7 +43,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import DetailsPanel from '../components/DetailsPanel.vue'
 import LoadingSpinnerView from '../components/LoadingSpinnerView.vue'
 import IconLoader from '../components/IconLoader.vue'
@@ -83,17 +83,62 @@ const show = ref(true)
 const toggleShow = () => {
   show.value = !show.value
 }
+
+let email = computed(this.$route.params.username)
+
+const loading = ref(false)
+const errorText = ref('')
+const numPages = ref(0)
+
+let fetchNumPages = async () => {
+  console.log('attempting login')
+
+  loading.value = true
+  errorText.value = ''
+
+  await fetch(
+    'https://localhost:7071/api/v1/Pokemon/GetNumberOfPagesPokeOwned?username=' + email.value,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        SessionID: 'some session'
+      }
+    }
+  )
+    .then((response) => {
+      response.json().then((data) => {
+        console.log(
+          'https://localhost:7071/api/v1/Pokemon/GetNumberOfPagesPokeOwned?username=' + email.value
+        )
+        console.log(data)
+        if (data.err) {
+          if (data.err) errorText.value = data.err
+          else errorText.value = data.err
+        } else {
+          numPages.value = data.numPages
+        }
+      })
+    })
+    .catch((err) => console.log(err))
+
+  loading.value = false
+}
+onMounted(() => {
+  fetchNumPages()
+  console.log(numPages.value)
+})
 </script>
 
 <style scoped>
 .list-enter-active,
 .list-leave-active {
-  transition: all 0.5s ease;
+  transition: all 0.125s ease;
 }
 
 .list-enter-from,
 .list-leave-to {
   opacity: 0;
-  transform: translateX(30px);
+  /* transform: translateX(30px); */
 }
 </style>

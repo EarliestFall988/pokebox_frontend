@@ -19,6 +19,7 @@
     "chart.js": "^4.2.1",
     "daisyui": "^2.51.5",
     "pinia": "^2.0.32",
+    "pinia-plugin-persistedstate": "^3.1.0",
     "pokedex-promise-v2": "^4.1.1",
     "theme-change": "^2.5.0",
     "vue": "^3.2.47",

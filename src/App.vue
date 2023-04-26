@@ -3,6 +3,10 @@ import { RouterLink, RouterView } from 'vue-router'
 import { onMounted } from 'vue'
 import { themeChange } from 'theme-change'
 
+import { useUserStore } from './stores/User.js'
+
+const user = useUserStore().user;
+
 onMounted(() => {
   themeChange(false)
 })
@@ -31,17 +35,17 @@ onMounted(() => {
         <div class="flex sm:hidden">
           <div class="dropdown dropdown-bottom dropdown-end">
             <label tabindex="0" class="btn m-1">|||</label>
-            <ul tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
-              <li>
+            <div tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
+              <div>
                 <RouterLink to="/">Home</RouterLink>
-              </li>
-              <li>
+              </div>
+              <div>
                 <RouterLink to="/about">About</RouterLink>
-              </li>
-              <li>
+              </div>
+              <div v-if="user.session != null">
                 <RouterLink to="/login">Login</RouterLink>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -52,7 +56,7 @@ onMounted(() => {
       <component :is="Component" />
     <!-- </transition> -->
   </router-view>
-  <footer class="footer footer-center p-10 bg-base-200 text-base-content rounded">
+  <footer class="footer footer-center p-10 bg-base-200/90 text-base-content rounded backdrop-blur-md">
     <div class="grid grid-flow-col gap-4">
       <a class="link link-hover">About us</a>
       <a class="link link-hover">Contact</a>

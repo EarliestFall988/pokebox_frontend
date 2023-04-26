@@ -1,5 +1,6 @@
 import { createApp } from 'vue'
 import { createPinia } from 'pinia'
+import piniaPluginPersistedstate from 'pinia-plugin-persistedstate'
 
 import { library } from '@fortawesome/fontawesome-svg-core'
 import {
@@ -31,7 +32,9 @@ import {
   faHillRockslide,
   faX,
   faAngleDown,
-  faAngleUp
+  faAngleUp,
+  faArrowDown,
+  faTriangleExclamation
 } from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -69,6 +72,9 @@ library.add(faAngleUp)
 library.add(faUserMinus)
 library.add(faArrowUpRightFromSquare)
 
+library.add(faArrowDown)
+library.add(faTriangleExclamation)
+
 import App from './App.vue'
 import router from './router'
 
@@ -76,7 +82,10 @@ import './assets/main.css'
 
 const app = createApp(App)
 
-app.use(createPinia())
+const pinia = createPinia()
+pinia.use(piniaPluginPersistedstate)
+
+app.use(pinia)
 app.use(router)
 app.component('font-awesome-icon', FontAwesomeIcon)
 

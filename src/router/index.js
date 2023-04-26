@@ -40,8 +40,14 @@ const router = createRouter({
       component: () => import('../views/RegisterView.vue'),
       meta: {}
     },
+    // {
+    //   path: '/pokemon',
+    //   name: 'pokemon',
+    //   component: () => import('../views/PokemonView.vue'),
+    //   meta: { transition: 'slide'}
+    // },
     {
-      path: '/pokemon',
+      path: '/pokemon/:username',
       name: 'pokemon',
       component: () => import('../views/PokemonView.vue'),
       meta: { transition: 'slide'}
@@ -50,6 +56,13 @@ const router = createRouter({
       path: '/dashboard',
       name: 'dashboard',
       component: () => import('../views/DashboardView.vue'),
+    },
+    {
+      path: '/:catchAll(.*)',
+      // route level code-splitting
+      // this generates a separate chunk (About.[hash].js) for this route
+      // which is lazy-loaded when the route is visited.
+      component: () => import('../views/NotFoundView.vue')
     }
   ]
 })

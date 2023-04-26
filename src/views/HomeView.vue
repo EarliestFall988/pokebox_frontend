@@ -14,7 +14,7 @@
           </p>
 
           <!-- <button class="btn btn-primary"> -->
-            <RouterLink class="btn btn-primary " to="/register">Push This Button!</RouterLink>
+          <RouterLink class="btn btn-primary" to="/register">Push This Button!</RouterLink>
           <!-- </button> -->
         </div>
         <div class="my-20 lg:my-80"></div>
@@ -67,8 +67,10 @@
           class="rounded-lg"
         />
       </div>
-      <div class="text-3xl text-center mt-10 text-white">Pricing</div>
-      <div class="flex flex-wrap md:m-5 justify-around items-center bg-accent rounded-lg py-10 text-white">
+      <div class="text-3xl text-center mt-10 text-white font-bold mb-4">Pricing</div>
+      <div
+        class="flex flex-wrap md:m-5 justify-around items-center bg-accent rounded-lg py-10 text-white"
+      >
         <div class="w-60 h-96 rounded-lg p-2">
           <div class="text-center text-lg font-bold m-4">Starter Pack</div>
           <div class="w-60 m-auto h-60">
@@ -107,10 +109,25 @@
           <p class="text-center mt-5 text-2xl font-bold">$150</p>
         </div>
       </div>
-      <div class="flex md:justify-end m-20">
-        <button class="btn btn-primary text-white shadow">
-          <RouterLink to="/register">Check it out now!</RouterLink>
-        </button>
+      <div class="flex flex-col md:flex-row items-center md:items-end justify-center p-2">
+        <img
+          src="../assets/graphics/Pokemon-Transparent-Images.png"
+          class="w md:w-[40%] md:m-auto m:max-w-sm rounded-lg scale-150 translate-y-8 -z-10 saturate-150 rotate-3"
+        />
+        <div class="bg-gray-900/5 backdrop-blur-sm rounded p-10 w-full md:w-auto">
+          <div>
+            <p class="text-2xl font-bold rotate-12 translate-x-10 pb-5 text-white">
+              Click Right Here
+            </p>
+            <font-awesome-icon icon="arrow-down" class="ml-2 w-5 h-5 scale-150 translate-x-16 -translate-y-5 text-yellow-400 -rotate-12" />
+          </div>
+          <button
+            class="btn btn-wide btn-primary text-white shadow scale-100 hover:scale-110 transition-all md:mr-10"
+          >
+            <RouterLink to="/register">Check it out!</RouterLink>
+            <font-awesome-icon icon="arrow-up-right-from-square" class="ml-2 w-4 h-4" />
+          </button>
+        </div>
       </div>
     </div>
   </main>
