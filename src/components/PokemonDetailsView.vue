@@ -15,7 +15,7 @@ defineProps(['selectedPokemon'])
         <div class="flex justify-between w-full items-start mb-4">
           <div class="flex items-center mb-1">
             <font-awesome-icon icon="user" class="w-3 h-3 mr-1 text-info" />
-            <p>{{ selectedPokemon.Username }}</p>
+            <p class="truncate w-40">{{ selectedPokemon.Username }}</p>
           </div>
         </div>
 
