@@ -19,6 +19,11 @@ const logout = function () {
 onMounted(() => {
   themeChange(false)
 })
+
+const pokemonNav = function () {
+  router.push('/pokemon')
+  useUserStore().searchUser = user.email
+}
 </script>
 
 <template>
@@ -44,6 +49,7 @@ onMounted(() => {
             </li>
             <li v-else>
               <RouterLink to="/pokemon">Your Pokemon</RouterLink>
+              <!-- <button @click="pokemonNav" class="btn btn-ghost">Your Pokemon</button> -->
               <RouterLink v-if="user.isAdmin" to="/dashboard">Dashboard</RouterLink>
               <button @click="logout">Logout</button>
             </li>

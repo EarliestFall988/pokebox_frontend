@@ -87,7 +87,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed, watch } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 // import LoadingSpinnerView from '../components/LoadingSpinnerView.vue'
 import IconLoader from '../components/IconLoader.vue'
 // import router from '../router'

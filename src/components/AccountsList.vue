@@ -51,10 +51,15 @@ import { defineProps, onMounted } from 'vue'
 import AccountListItem from './AccountListItem.vue'
 import router from '../router'
 
+import { useUserStore } from '../stores/User'
+
+const user = useUserStore()
+
 const props = defineProps(['accounts'])
 
-let changePokeBox = async () => {
+let changePokeBox = async (username) => {
   console.log('attempting PokeBox')
+  user.searchUser = username
   router.push('/pokemon')
 }
 

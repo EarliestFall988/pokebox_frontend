@@ -1,16 +1,7 @@
 <template>
   <div class="flex items-center flex-wrap md:grid grid-cols-3 gap-4 my-2">
     <div class="col-span-2">
-      <input
-        type="text"
-        class="p-2 rounded-lg md:w-full text-white input input-bordered max-w-xs"
-        placeholder="Search Pokemon..."
-        v-model="searchPokemonName"
-      />
-      <button @click="$emit('fetchPokemonRank')" class="btn btn-primary text-white shadow mx-2">
-        <!-- <RouterLink to="/register">Search</RouterLink> -->
-        Search
-      </button>
+      <slot />
     </div>
     <div class="flex justify-end px-2 my-auto">
       <!-- <RouterLink to="/register">Create Account</RouterLink> -->
