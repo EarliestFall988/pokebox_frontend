@@ -35,10 +35,10 @@
         class="p-1 rounded-lg flex items-center justify-between"
       >
         <AccountListItem
-          @delete="deleteAccount(a.id)"
-          :email="a.email"
-          :fullName="a.fName + ' ' + a.lName"
-          :admin="false"
+          @details="changeDetails()"
+          :email="a.UserName"
+          :fullName="a.FirstName + ' ' + a.LastName"
+          :admin="a.IsAdmin"
         />
       </div>
     </div>
@@ -50,6 +50,13 @@ import { defineProps, onMounted } from 'vue'
 import AccountListItem from './AccountListItem.vue'
 
 const props = defineProps(['accounts'])
+
+let changeDetails = async () => {
+  console.log('attempting login')
+  errorText.value = ''
+
+  
+}
 
 onMounted(() => {
   console.log(props.accounts)
