@@ -72,45 +72,13 @@ const user = useUserStore().user
 const selectedTab = ref(0)
 const toggleTab = function (tab) {
   selectedTab.value = tab
+  if(tab == 0)
+  {
+    fetchUser()
+  }
 }
 
 const accounts = ref([
-  {
-    id: 1,
-    email: 'john.s.mitchel222@hotmail.co.uk',
-    fName: 'John',
-    lName: 'Mitchel',
-    password: 'password',
-    phone: '07777777777',
-    address: '123 Fake Street',
-    city: 'London',
-    postcode: 'E1 1AA',
-    country: 'United Kingdom'
-  },
-  {
-    id: 2,
-    email: 'hotchicka3342@gmail.com',
-    fName: 'Jane',
-    lName: 'Doe',
-    password: 'password',
-    phone: '01232212322',
-    address: '123 Fake Street',
-    city: 'London',
-    postcode: 'E1 1AA',
-    country: 'United Kingdom'
-  },
-  {
-    id: 3,
-    email: 'mmtrashdev@outlook.com',
-    fName: 'Michael',
-    lName: 'Mitchel',
-    password: 'password',
-    phone: '01234567890',
-    address: '123 Fake Street',
-    city: 'London',
-    postcode: 'E1 1AA',
-    country: 'United Kingdom'
-  }
 ])
 
 // const deleteAccount = function (id) {
@@ -147,6 +115,36 @@ const errorText = ref('')
 const PokeAccountRank = ref([])
 
 const searchPokemonName = ref('ditto')
+
+let fetchUser = async () => {
+  console.log('attempting login')
+  errorText.value = ''
+
+  await fetch(
+    'https://localhost:7071/api/Accounts',
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        SessionID: user.session
+      }
+    }
+  )
+    .then((response) => {
+      console.log(response)
+      response.json().then((data) => {
+        console.log(data)
+        if (data.err) {
+          if (data.err) errorText.value = data.err
+          else errorText.value = data.err
+        } else {
+          console.log(data)
+          accounts.value = data
+        }
+      })
+    })
+    .catch((err) => console.log(err))
+}
 
 let fetchPokemonRank = async () => {
   console.log('attempting login')
@@ -186,6 +184,7 @@ let fetchPokemonRank = async () => {
 
 onMounted(() => {
   // await fetchPokemonTypes(datetime.value)
+  fetchUser()
 })
 </script>
 
