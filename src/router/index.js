@@ -60,7 +60,7 @@ const router = createRouter({
     {
       path: '/items',
       name: 'items',
-      component: () => import('../views/PokemonView.vue')
+      component: () => import('../views/ItemsView.vue')
     },
     {
       path: '/:catchAll(.*)',
