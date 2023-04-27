@@ -11,11 +11,12 @@ export const useUserStore = defineStore(
       email: '',
       firstName: '',
       lastName: '',
-      session: ''
+      session: '',
+      isAdmin: false
     })
 
     const searchUser = ref({
-      email: '',
+      email: ''
     })
 
     return { user, searchUser }

@@ -17,54 +17,56 @@
   </div>
 
   <div class="md:w-3/4 m-5 mx-auto">
-    <h2 class="text-lg text-white font-bold mb-2 mx-2">Accounts</h2>
+    <!-- <h2 class="text-lg text-white font-bold mb-2 mx-2">Accounts</h2> -->
     <div class="bg-gray-800/50 p-2 md:rounded-lg">
-      <div class="flex items-center flex-wrap md:grid grid-cols-3 gap-4 my-2">
-        <div class="col-span-2">
-          <input
-            type="text"
-            class="p-2 rounded-lg md:w-full text-white input input-bordered max-w-xs"
-            placeholder="Search Accounts..."
-          />
-          <button class="btn btn-primary text-white shadow mx-2">
-            <RouterLink to="/register">Search</RouterLink>
-          </button>
-        </div>
-        <div class="flex justify-end px-2 my-auto">
-          <RouterLink to="/register">Create Account</RouterLink>
-        </div>
-      </div>
+      <div class="tabs tabs-boxed">
+        <button @click="toggleTab(0)" v-if="selectedTab != 0" class="tab">Accounts</button>
+        <a v-else class="tab tab-active">Accounts</a>
 
-      <div class="flex">
-        <div class="w-full text-white font-bold px-2 grid grid-cols-3">
-          <p>username</p>
-          <p class="text-center">full name</p>
-          <p class="text-right">account type</p>
-        </div>
-        <div class="px-3"></div>
+        <button @click="toggleTab(1)" v-if="selectedTab != 1" class="tab">Pokemon</button>
+        <a v-else class="tab tab-active">Pokemon</a>
+
+        <button @click="toggleTab(2)" v-if="selectedTab != 2" class="tab">Items</button>
+        <a v-else class="tab tab-active">Items</a>
       </div>
       <div>
-        <div v-if="accounts.length === 0" class="flex justify-center items-center">
-          <p
-            class="mt-2 text-lg text-info italic bg-gray-800/50 w-full text-center py-5 rounded-lg"
-          >
-            No accounts to view...yet
-          </p>
-        </div>
-        <div v-else>
-          <div
-            v-for="a in accounts"
-            :key="a.id"
-            class="p-1 rounded-lg flex items-center justify-between"
-          >
-            <AccountListItem
-              @delete="deleteAccount(a.id)"
-              :email="a.email"
-              :fullName="a.fName + ' ' + a.lName"
-              :admin="false"
-            />
+        <AccountsListVue :accounts="accounts" v-if="selectedTab === 0" />
+        <div v-if="selectedTab === 1">
+          <div class="flex items-center flex-wrap md:grid grid-cols-3 gap-4 my-2">
+            <div class="col-span-2">
+              <input
+                type="text"
+                class="p-2 rounded-lg md:w-full text-white input input-bordered max-w-xs"
+                placeholder="Search Pokemon..."
+                v-model="searchPokemonName"
+              />
+              <button @click="fetchPokemonRank" class="btn btn-primary text-white shadow mx-2">
+                <!-- <RouterLink to="/register">Search</RouterLink> -->
+                Search
+              </button>
+            </div>
+            <div class="flex justify-end px-2 my-auto">
+              <!-- <RouterLink to="/register">Create Account</RouterLink> -->
+            </div>
+          </div>
+          <div class="w-full">
+            <div v-if="!loadingPokemonRank">
+              <div
+                v-for="p in PokeAccountRank"
+                :key="p"
+                class="grid grid-cols-3 w-full p-2 bg-gray-800 text-white m-1 rounded"
+              >
+                <p>{{ p.Rank }}</p>
+                <p>{{ p.Username }}</p>
+                <p class="text-right">{{ p.PokemonCount }}</p>
+              </div>
+            </div>
+            <div v-else>
+              <LoadingSpinnerView />
+            </div>
           </div>
         </div>
+        <div v-if="selectedTab === 2">test2</div>
       </div>
     </div>
   </div>
@@ -83,11 +85,20 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { usePokemonStore } from '../stores/pokemon'
+import { useUserStore } from '../stores/User'
 import PieChart from '../components/Charts/PieChart.vue'
 import LineChart from '../components/Charts/LineChart.vue'
-import AccountListItem from '../components/AccountListItem.vue'
+import AccountsListVue from '../components/AccountsList.vue'
 import FullScreenLoading from '../components/FullScreenLoading.vue'
 import YesNoModal from '../components/YesNoModal.vue'
+import LoadingSpinnerView from '../components/LoadingSpinnerView.vue'
+
+const user = useUserStore().user
+
+const selectedTab = ref(0)
+const toggleTab = function (tab) {
+  selectedTab.value = tab
+}
 
 const accounts = ref([
   {
@@ -128,41 +139,51 @@ const accounts = ref([
   }
 ])
 
-const deleteAccount = function (id) {
-  accountToDelete.value = id
-  triggerModal('Delete Account', 'Are you sure you want to delete this account?')
-}
+// const deleteAccount = function (id) {
+//   accountToDelete.value = id
+//   triggerModal('Delete Account', 'Are you sure you want to delete this account?')
+// }
 
 const modalTitle = ref('')
 const modalDescription = ref('')
 const showModal = ref(false)
 
-const accountToDelete = ref(-1)
+const loadingPokemonRank = ref(true)
 
-const triggerModal = function (title, description) {
-  modalTitle.value = title
-  modalDescription.value = description
-  showModal.value = true
-}
+// const accountToDelete = ref(-1)
 
-const yes = function () {
-  showModal.value = false
-  accounts.value = accounts.value.filter((a) => a.id !== accountToDelete.value) //fix this...
-  accountToDelete.value = -1
-}
+// const triggerModal = function (title, description) {
+//   modalTitle.value = title
+//   modalDescription.value = description
+//   showModal.value = true
+// }
 
-const no = function (before, now) {
-  showModal.value = false
-}
+// const yes = function () {
+//   showModal.value = false
+//   accounts.value = accounts.value.filter((a) => a.id !== accountToDelete.value) //fix this...
+//   accountToDelete.value = -1
+// }
 
-let fetchAllPokemonOwned = async () => {
+// const no = function (before, now) {
+//   showModal.value = false
+// }
+
+const loading = ref(false)
+const errorText = ref('')
+const PokeAccountRank = ref([])
+
+const searchPokemonName = ref('ditto')
+
+let fetchPokemonRank = async () => {
   console.log('attempting login')
+
+  loadingPokemonRank.value = true
 
   loading.value = true
   errorText.value = ''
 
   await fetch(
-    'https://localhost:7071/api/v1/Pokemon/PokeTypeCount?username=' + username.value,
+    'https://localhost:7071/api/v1/Pokemon/PokeRank?pokemonName=' + searchPokemonName.value,
     {
       method: 'GET',
       headers: {
@@ -179,17 +200,41 @@ let fetchAllPokemonOwned = async () => {
           else errorText.value = data.err
         } else {
           console.log(data)
-          pokemonOwned.value = data
+          PokeAccountRank.value = data
         }
       })
     })
     .catch((err) => console.log(err))
 
   loading.value = false
+  loadingPokemonRank.value = false
 }
 
 onMounted(() => {
   // await fetchPokemonTypes(datetime.value)
-
 })
 </script>
+
+<style scoped>
+.fade-enter-active,
+.fade-leave-active {
+  position: absolute;
+  transition: all 0.85s ease;
+}
+
+.fade-enter-from {
+  opacity: 0;
+}
+
+.fade-enter-to {
+  opacity: 1;
+}
+
+.fade-leave-from {
+  opacity: 1;
+}
+
+.fade-leave-to {
+  opacity: 0;
+}
+</style>

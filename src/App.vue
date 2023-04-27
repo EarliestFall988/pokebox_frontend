@@ -44,12 +44,12 @@ onMounted(() => {
             </li>
             <li v-else>
               <RouterLink to="/pokemon">Your Pokemon</RouterLink>
-              <RouterLink to="/dashboard">Dashboard</RouterLink>
+              <RouterLink v-if="user.isAdmin" to="/dashboard">Dashboard</RouterLink>
               <button @click="logout">Logout</button>
             </li>
           </ul>
         </div>
-        <div class="flex sm:hidden">
+        <!-- <div class="flex sm:hidden">
           <div class="dropdown dropdown-bottom dropdown-end">
             <label tabindex="0" class="btn m-1">|||</label>
             <div tabindex="0" class="dropdown-content menu p-2 shadow bg-base-100 rounded-box w-52">
@@ -64,7 +64,7 @@ onMounted(() => {
               </div>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     </div>
   </header>
