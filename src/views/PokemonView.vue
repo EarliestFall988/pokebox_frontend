@@ -39,6 +39,7 @@
             :url="p.ImageLink"
             :name="p.NickName"
             :legendary="p.IsLegendary"
+            @select="selectPokemon(p.PokeOwnedID)"
           />
         </TransitionGroup>
       </div>
@@ -48,8 +49,25 @@
         </p>
       </div>
     </div>
-    <div class="hidden md:flex">
-      <DetailsPanel />
+    <div v-if="selectedPokemon != null" class="hidden md:flex">
+      <!-- <DetailsPanel /> -->
+      <PanelView
+        class="bg-gray-800/50 rounded-none m-0"
+        title="Pokemon"
+        description="take a look at what you got."
+      >
+        <Transition name="list" appear mode="out-in">
+          <PokemonDetailsView
+            v-if="!selectedPokemon.IsLegendary"
+            :selectedPokemon="selectedPokemon"
+          />
+          <PokemonDetailsView
+            v-else
+            :selectedPokemon="selectedPokemon"
+            class="bg-gradient-to-br from-yellow-800 to-red-900/20 border-t-2 border-yellow-600"
+          />
+        </Transition>
+      </PanelView>
     </div>
 
     <!-- <TostView @close="toggleShow()" :show="show">
@@ -69,56 +87,29 @@
 </template>
 
 <script setup>
-import { ref, onMounted, computed } from 'vue'
-import DetailsPanel from '../components/DetailsPanel.vue'
-import LoadingSpinnerView from '../components/LoadingSpinnerView.vue'
+import { ref, onMounted, computed, watch } from 'vue'
+// import LoadingSpinnerView from '../components/LoadingSpinnerView.vue'
 import IconLoader from '../components/IconLoader.vue'
-import router from '../router'
+// import router from '../router'
 import PanelView from '../components/PanelView.vue'
-import TostView from '../components/TostView.vue'
 import FullScreenLoading from '../components/FullScreenLoading.vue'
 
-import { usePokemonStore } from '../stores/pokemon'
-
 import { useUserStore } from '../stores/User.js'
-import GenderIcons from '../components/GenderIcons.vue'
+
+import PokemonDetailsView from '../components/PokemonDetailsView.vue'
 
 const user = useUserStore().user
 const searchUser = useUserStore().searchUser
 
-const loadingData = ref(false)
-
-const pokemonStore = usePokemonStore()
-
-const pokemon = pokemonStore.pokemon
+const loadingData = ref(true)
 
 const pokemonOwned = ref([])
 
-const boxes = ref([
-  {
-    id: 1,
-    name: 'My First Box'
-  },
-  {
-    id: 2,
-    name: 'I have this box too'
-  },
-  {
-    id: 3,
-    name: 'yoo another box'
-  }
-])
+const selectedPokemon = ref(null)
 
-const selectedBox = ref(boxes.value[0])
-
-const SelectNewBox = function (boxId) {
-  selectedBox.value = boxes.value.find((b) => b.id === boxId)
-  router.push('/pokemon')
-}
-
-const show = ref(true)
-const toggleShow = () => {
-  show.value = !show.value
+const selectPokemon = function (id) {
+  selectedPokemon.value = pokemonOwned.value.find((p) => p.PokeOwnedID === id)
+  console.log(selectedPokemon.value)
 }
 
 const username = computed(() => {
@@ -222,6 +213,8 @@ onMounted(async () => {
   await fetchNumPages()
   await fetchAllPokemonOwned()
 
+  // selectedPokemon.value = pokemonOwned.value[0]
+
   loadingData.value = false
 })
 </script>
@@ -235,6 +228,6 @@ onMounted(async () => {
 .list-enter-from,
 .list-leave-to {
   opacity: 0;
-  /* transform: translateX(30px); */
+  transform: translateY(-50px);
 }
 </style>

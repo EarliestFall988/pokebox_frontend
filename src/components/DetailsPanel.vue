@@ -2,16 +2,24 @@
   <div>
     <PanelView title="Selected Pokemon" description="Let's see what you've got">
       <Transition name="slide" mode="out-in" appear>
-        <KeepAlive>
+        <!-- <KeepAlive>
           <Suspense>
-            <template #default>
-              <AsyncPokemonDetailsController
-                name="jeff"
-                userName="ltd.houser137@hotmail.co.uk"
-                gender="male"
-                species="Squirtle"
-              />
-            </template>
+            <template #default> -->
+              <!-- <AsyncPokemonDetailsController
+                :name="nickname"
+                :userName="uname"
+                :gender="gender"
+                :species="species"
+                :element1="element1"
+                :element2="element2"
+                :level="level"
+                :isLegendary="isLegendary"
+                :url="url"
+              /> -->
+
+                {{ nickname }}
+
+            <!-- </template>
             <template #fallback>
               <div class="flex flex-col justify-center items-center mt-5 w-64 h-64">
                 <LoadingSpinnerView class="-mb-2" />
@@ -19,7 +27,7 @@
               </div>
             </template>
           </Suspense>
-        </KeepAlive>
+        </KeepAlive> -->
       </Transition>
     </PanelView>
   </div>
@@ -29,6 +37,10 @@
 import AsyncPokemonDetailsController from '../components/AsyncPokemonDetailsController.vue'
 import LoadingSpinnerView from '../components/LoadingSpinnerView.vue'
 import PanelView from './PanelView.vue'
+import { defineProps } from 'vue';
+
+defineProps(['id', 'nickname', 'species', 'element1', 'element2', 'level', 'isLegendary', 'url', 'uname', 'gender'])
+
 </script>
 
 <style scoped>

@@ -114,12 +114,21 @@
           src="../assets/graphics/Pokemon-Transparent-Images.png"
           class="w md:w-[40%] md:m-auto m:max-w-sm rounded-lg scale-150 translate-y-8 -z-10 saturate-150 rotate-3"
         />
-        <div class="bg-gray-900/5 backdrop-blur-sm rounded p-10 w-full md:w-auto">
+        <div class="bg-gray-900/20 backdrop-blur-sm">
           <div>
-            <p class="text-2xl font-bold rotate-12 translate-x-10 pb-5 text-white">
+            <p
+              class="text-2xl font-bold rotate-12 translate-x-10 translate-y-4 pb-5 text-warning animate-pulse"
+            >
               Click Right Here
             </p>
-            <font-awesome-icon icon="arrow-down" class="ml-2 w-5 h-5 scale-150 translate-x-16 -translate-y-5 text-yellow-400 -rotate-12" />
+            <font-awesome-icon
+              icon="arrow-down"
+              class="ml-2 w-5 h-5 scale-150 translate-x-16 -translate-y-5 text-warning -rotate-12"
+            />
+            <font-awesome-icon
+              icon="arrow-down"
+              class="ml-2 w-6 h-6 scale-150 translate-x-28 -translate-y-2 text-warning rotate-45"
+            />
           </div>
           <button
             class="btn btn-wide btn-primary text-white shadow scale-100 hover:scale-110 transition-all md:mr-10"

@@ -1,11 +1,20 @@
 <script setup>
 import { RouterLink, RouterView } from 'vue-router'
+import router from './router'
 import { onMounted } from 'vue'
 import { themeChange } from 'theme-change'
 
 import { useUserStore } from './stores/User.js'
 
 const user = useUserStore().user
+
+const logout = function () {
+  user.email = ''
+  user.session = ''
+  user.lastName = ''
+  user.firstName = ''
+  router.push('/')
+}
 
 onMounted(() => {
   themeChange(false)
@@ -30,8 +39,13 @@ onMounted(() => {
             <li>
               <RouterLink to="/about">About</RouterLink>
             </li>
-            <li class="bg-secondary rounded text-white">
+            <li v-if="!user.session" class="bg-secondary rounded text-white">
               <RouterLink to="/login">Login</RouterLink>
+            </li>
+            <li v-else>
+              <RouterLink to="/pokemon">Your Pokemon</RouterLink>
+              <RouterLink to="/dashboard">Dashboard</RouterLink>
+              <button @click="logout">Logout</button>
             </li>
           </ul>
         </div>
@@ -60,7 +74,7 @@ onMounted(() => {
     <!-- </transition> -->
   </router-view>
   <footer
-    class="footer footer-center p-10 bg-base-200/90 text-base-content rounded backdrop-blur-md"
+    class="footer footer-center p-10 bg-base-200/70 text-base-content rounded backdrop-blur-lg"
   >
     <div class="grid grid-flow-col gap-4">
       <a class="link link-hover">About us</a>

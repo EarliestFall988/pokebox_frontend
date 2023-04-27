@@ -1,15 +1,17 @@
 <script setup>
-import { ref, defineProps } from 'vue'
+import { defineProps, defineEmits } from 'vue'
 import { useImage } from '@vueuse/core'
 import LoadingSpinnerViewVue from './LoadingSpinnerView.vue'
 
 const props = defineProps(['url', 'name', 'legendary'])
 
+defineEmits(['select'])
+
 const { isLoading } = useImage({ src: props.url })
 </script>
 
 <template>
-  <div v-if="!legendary">
+  <button @click="$emit('select')" v-if="!legendary">
     <Transition name="fade" appear>
       <div
         class="bg-gray-800/60 rounded hover:scale-150 brightness-90 shadow-none hover:shadow-2xl hover:brightness-100 hover:bg-black/80 hover:z-20 transition duration-150 hover:border-0 m-1 h-20 w-20 flex flex-col justify-between items-center"
@@ -24,11 +26,11 @@ const { isLoading } = useImage({ src: props.url })
         </div>
       </div>
     </Transition>
-  </div>
-  <div v-else>
+  </button>
+  <button @click="$emit('select')" v-else>
     <Transition name="fade" appear>
       <div
-        class="bg-gray-700/60 border-yellow-300 border-2 rounded hover:scale-150 brightness-90 shadow-none hover:shadow-2xl hover:brightness-100 hover:bg-black/80 hover:z-20 transition duration-150 hover:border-0 m-1 h-20 w-20 flex flex-col justify-between items-center"
+        class="bg-gray-700/60 border-yellow-300 border-2 rounded hover:scale-150 hover:bg-yellow-800 brightness-90 shadow-none hover:shadow-2xl hover:brightness-100 hover:bg-black/80 hover:z-20 transition duration-150 hover:border-0 m-1 h-20 w-20 flex flex-col justify-between items-center"
       >
         <div v-if="isLoading">
           <LoadingSpinnerViewVue />
@@ -39,7 +41,7 @@ const { isLoading } = useImage({ src: props.url })
         </div>
       </div>
     </Transition>
-  </div>
+  </button>
 </template>
 
 <style>
