@@ -37,13 +37,7 @@
         <font-awesome-icon icon="arrow-up-right-from-square" class="w-4 h-4 my-auto text-white" />
         <p class="my-auto mx-2">Details</p>
       </button>
-      <button
-        @click="$emit('delete')"
-        class="bg-red-600 rounded text-white p-1 flex hover:scale-105 hover:animate-pulse transition-all duration-150"
-      >
-        <font-awesome-icon icon="user-minus" class="w-4 h-4 text-white my-auto" />
-        <p class="my-auto mx-2">Delete Account Forever</p>
-      </button>
+
     </div>
   </div>
 </template>
