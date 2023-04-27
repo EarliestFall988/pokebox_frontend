@@ -35,7 +35,8 @@
         class="p-1 rounded-lg flex items-center justify-between"
       >
         <AccountListItem
-          @details="changeDetails()"
+          @pokebox="changePokeBox()"
+          @itembox="changeItemBox()"
           :email="a.UserName"
           :fullName="a.FirstName + ' ' + a.LastName"
           :admin="a.IsAdmin"
@@ -48,12 +49,18 @@
 <script setup>
 import { defineProps, onMounted } from 'vue'
 import AccountListItem from './AccountListItem.vue'
+import router from '../router'
 
 const props = defineProps(['accounts'])
 
-let changeDetails = async () => {
-  console.log('attempting login')
-  errorText.value = ''
+let changePokeBox = async () => {
+  console.log('attempting PokeBox')
+  router.push('/pokemon')
+}
+
+let changeItemBox = async () => {
+  console.log('attempting ItemBox')
+  router.push('/items')
 }
 
 onMounted(() => {

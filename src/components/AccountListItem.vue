@@ -31,11 +31,19 @@
     </div>
     <div v-if="openDetails" class="flex justify-end items-center">
       <button
-        @click="$emit('details')"
+        @click="$emit('pokebox')"
         class="bg-blue-500 rounded text-white p-1 mr-2 flex hover:scale-105 transition-all duration-150"
       >
         <font-awesome-icon icon="arrow-up-right-from-square" class="w-4 h-4 my-auto text-white" />
-        <p class="my-auto mx-2">Details</p>
+        <p class="my-auto mx-2">PokeBox</p>
+      </button>
+
+      <button
+        @click="$emit('itembox')"
+        class="bg-blue-500 rounded text-white p-1 mr-2 flex hover:scale-105 transition-all duration-150"
+      >
+        <font-awesome-icon icon="arrow-up-right-from-square" class="w-4 h-4 my-auto text-white" />
+        <p class="my-auto mx-2">ItemBox</p>
       </button>
 
     </div>
@@ -46,7 +54,7 @@
 import { defineProps, defineEmits, ref } from 'vue'
 defineProps(['email', 'fullName', 'admin'])
 
-defineEmits(['delete', 'details'])
+defineEmits(['itembox', 'pokebox'])
 
 const openDetails = ref(false)
 
