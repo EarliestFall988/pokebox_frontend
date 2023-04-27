@@ -14,7 +14,11 @@ export const useUserStore = defineStore(
       session: ''
     })
 
-    return { user }
+    const searchUser = ref({
+      email: '',
+    })
+
+    return { user, searchUser }
   },
   { persist: true }
 )

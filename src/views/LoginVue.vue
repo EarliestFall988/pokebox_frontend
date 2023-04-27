@@ -58,6 +58,7 @@ import { useUserStore } from '../stores/User'
 import LoadingSpinnerView from '../components/LoadingSpinnerView.vue'
 
 const user = useUserStore().user
+const searchUser = useUserStore().searchUser
 
 const Email = ref('')
 const Password = ref('')
@@ -97,7 +98,9 @@ let attemptLogin = async () => {
           user.session = data.session
           user.email = data.email
 
-          router.push('/')
+          searchUser.email = data.email
+
+          router.push('/pokemon')
         }
       })
     })

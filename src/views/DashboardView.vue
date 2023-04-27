@@ -81,7 +81,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { usePokemonStore } from '../stores/pokemon'
 import PieChart from '../components/Charts/PieChart.vue'
 import LineChart from '../components/Charts/LineChart.vue'
@@ -151,7 +151,45 @@ const yes = function () {
   accountToDelete.value = -1
 }
 
-const no = function () {
+const no = function (before, now) {
   showModal.value = false
 }
+
+let fetchAllPokemonOwned = async () => {
+  console.log('attempting login')
+
+  loading.value = true
+  errorText.value = ''
+
+  await fetch(
+    'https://localhost:7071/api/v1/Pokemon/PokeTypeCount?username=' + username.value,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        SessionID: user.session
+      }
+    }
+  )
+    .then((response) => {
+      response.json().then((data) => {
+        console.log(data)
+        if (data.err) {
+          if (data.err) errorText.value = data.err
+          else errorText.value = data.err
+        } else {
+          console.log(data)
+          pokemonOwned.value = data
+        }
+      })
+    })
+    .catch((err) => console.log(err))
+
+  loading.value = false
+}
+
+onMounted(() => {
+  // await fetchPokemonTypes(datetime.value)
+
+})
 </script>
