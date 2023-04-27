@@ -50,12 +50,17 @@ const router = createRouter({
       path: '/pokemon',
       name: 'pokemon',
       component: () => import('../views/PokemonView.vue'),
-      meta: { transition: 'slide'}
+      meta: { transition: 'slide' }
     },
     {
       path: '/dashboard',
       name: 'dashboard',
-      component: () => import('../views/DashboardView.vue'),
+      component: () => import('../views/DashboardView.vue')
+    },
+    {
+      path: '/items',
+      name: 'items',
+      component: () => import('../views/PokemonView.vue')
     },
     {
       path: '/:catchAll(.*)',

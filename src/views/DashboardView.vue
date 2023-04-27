@@ -37,7 +37,11 @@
             @fetchPokemonRank="fetchPokemonRank"
             :loadingPokemonRank="loadingPokemonRank"
           />
-          <div v-if="selectedTab === 2">test2</div>
+          <div v-if="selectedTab === 2">
+          
+
+
+          </div>
         </div>
       </div>
     </div>
@@ -90,7 +94,7 @@ const modalTitle = ref('')
 const modalDescription = ref('')
 const showModal = ref(false)
 
-const loadingPokemonRank = ref(true)
+const loadingPokemonRank = ref(false)
 
 // const accountToDelete = ref(-1)
 
