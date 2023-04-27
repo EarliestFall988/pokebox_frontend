@@ -18,14 +18,19 @@
   </div>
   <div class="w-full">
     <div v-if="!loadingPokemonRank">
+      <div class="grid grid-cols-3 w-full p-2 text-white m-1 rounded">
+        <p>Rank</p>
+        <p class="text-center">Username</p>
+        <p class="text-right">Pokemon Count</p>
+      </div>
       <div
         v-for="p in PokeAccountRank"
         :key="p"
         class="grid grid-cols-3 w-full p-2 bg-gray-800 text-white m-1 rounded"
       >
-        <p>{{ p.Rank }}</p>
-        <p>{{ p.Username }}</p>
-        <p class="text-right">{{ p.PokemonCount }}</p>
+        <p class="text-lg font-bold truncate">#{{ p.Rank }}</p>
+        <p class="text-center truncate">{{ p.Username }}</p>
+        <p class="text-right truncate">{{ p.PokemonCount }}</p>
       </div>
     </div>
     <div v-else>

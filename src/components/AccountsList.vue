@@ -15,7 +15,7 @@
     </div>
   </div>
   <div class="flex">
-    <div class="w-full text-white font-bold px-2 grid grid-cols-3">
+    <div class="w-full text-white px-2 grid grid-cols-3">
       <p>username</p>
       <p class="text-center">full name</p>
       <p class="text-right">account type</p>
@@ -54,8 +54,6 @@ const props = defineProps(['accounts'])
 let changeDetails = async () => {
   console.log('attempting login')
   errorText.value = ''
-
-  
 }
 
 onMounted(() => {
