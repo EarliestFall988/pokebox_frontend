@@ -113,6 +113,7 @@ const pokemonOwned = ref([])
 
 const selectedItemName = ref(null)
 const selectedItemURL = ref(null)
+// const selectedItemT
 
 const selectItem = function (name) {
   var res = pokemonOwned.value.find((p) => p.ItemName === name)
