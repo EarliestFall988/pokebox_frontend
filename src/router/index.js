@@ -39,6 +39,12 @@ const router = createRouter({
       // which is lazy-loaded when the route is visited.
       component: () => import('../views/RegisterView.vue'),
       meta: {}
+      },
+    {
+        path: '/AddPokemonOwned',
+        name: 'AddPokemonOwned',
+        component: () => import('../views/AddPokemonOwnedView.vue'),
+        meta: {}
     },
     // {
     //   path: '/pokemon',
