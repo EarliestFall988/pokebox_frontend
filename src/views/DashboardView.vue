@@ -1,19 +1,25 @@
 <template>
   <div class="text-center m-2">
-    <h3 class="text-3xl font-bold text-white">Dashboard</h3>
+    <h3 class="text-3xl font-bold text-primary">/Dashboard</h3>
     <p class="text-info italic">Check the health and wellbeing of the application</p>
   </div>
 
   <div class="md:w-3/4 md:m-auto">
-    <h2 class="text-lg text-white font-bold mb-2 mx-2">Stats</h2>
+    <!-- <h2 class="text-lg text-white font-bold mb-2 mx-2">Stats</h2> -->
 
-    <div class="p-2 my-1 md:rounded-lg bg-gray-800/50 flex flex-wrap justify-around items-center">
-      <div class="text-center bg-gray-800 p-4 rounded">
-        <h4 class="text-3xl font-bold text-white w-30 h-30 my-4">
-          {{ accounts.length }}
-        </h4>
-        <p class="text-white">Total Accounts</p>
+    <div class="p-2 md:rounded-lg bg-gray-800/50 mt-5 flex items-center">
+      <div class="flex flex-wrap justify-around items-center">
+        <div class="text-center bg-gray-800 rounded p-2">
+          <h4 class="text-3xl font-bold text-white w-30 h-30 my-4">
+            {{ accounts.length }}
+          </h4>
+          <p class="text-white">Total Accounts</p>
+        </div>
       </div>
+    </div>
+    <div class="flex my-3 border-l-2 rounded mt-4 border-blue-500">
+      <button class="btn btn-info mx-2">Add New Pokemon</button>
+      <button class="btn btn-info mx-2">Add New Items</button>
     </div>
   </div>
 
@@ -33,7 +39,9 @@
         <button @click="toggleTab(3)" v-if="selectedTab != 3" class="tab">Poke Type</button>
         <a v-else class="tab tab-active">Poke Type</a>
 
-        <button @click="toggleTab(4)" v-if="selectedTab != 4" class="tab">Average User Level</button>
+        <button @click="toggleTab(4)" v-if="selectedTab != 4" class="tab">
+          Average User Level
+        </button>
         <a v-else class="tab tab-active">Average User Level</a>
       </div>
       <div>
@@ -219,9 +227,10 @@
                 <div
                   class="grid grid-cols-3 w-full p-2 bg-gray-800 text-white m-1 rounded"
                   v-for="a in Object.keys(pokeRank)"
+                  :key="a"
                 >
                   <ElementIcons :element="a" />
-                  <p class="text-center truncate"> {{ a }} </p>
+                  <p class="text-center truncate">{{ a }}</p>
                   <p class="text-right truncate">{{ pokeRank[a] }}</p>
                 </div>
               </div>
@@ -262,7 +271,7 @@
                   class="grid grid-cols-3 w-full p-2 bg-gray-800 text-white m-1 rounded"
                   v-for="a in Object.keys(allAvergae)"
                 >
-                  <p class="truncate"> {{ a }} </p>
+                  <p class="truncate">{{ a }}</p>
                   <p class="text-right truncate">{{ allAvergae[a] }}</p>
                 </div>
               </div>
@@ -416,20 +425,23 @@ let fetchAverage = async () => {
     })
     .catch((err) => console.log(err))
 
-    loadingAverage.value = false
+  loadingAverage.value = false
 }
 
 let fetchRank = async () => {
   console.log('attempting rank')
   errorText.value = ''
 
-  await fetch('https://localhost:7071/api/v1/Pokemon/PokeTypeCount?startMonth=1&startYear=2000&endMonth=12&endYear=2050', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      SessionID: user.session
+  await fetch(
+    'https://localhost:7071/api/v1/Pokemon/PokeTypeCount?startMonth=1&startYear=2000&endMonth=12&endYear=2050',
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        SessionID: user.session
+      }
     }
-  })
+  )
     .then((response) => {
       console.log(response)
       response.json().then((data) => {
@@ -445,7 +457,7 @@ let fetchRank = async () => {
     })
     .catch((err) => console.log(err))
 
-    loadingType.value = false
+  loadingType.value = false
 }
 
 let fetchPokemonRank = async () => {
@@ -535,7 +547,6 @@ onMounted(async () => {
   // await fetchPokemonTypes(datetime.value)
   loading.value = true
   await fetchUsers()
-
 
   loading.value = false
 })

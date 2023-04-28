@@ -37,7 +37,8 @@ import {
   faTriangleExclamation,
   faArrowLeft,
   faArrowRight,
-  faUser
+  faUser,
+  faAdd,
 } from '@fortawesome/free-solid-svg-icons'
 
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
@@ -84,6 +85,8 @@ library.add(faArrowRight)
 library.add(faArrowRight)
 
 library.add(faUser)
+
+library.add(faAdd)
 
 import App from './App.vue'
 import router from './router'

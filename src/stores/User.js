@@ -16,7 +16,7 @@ export const useUserStore = defineStore(
     })
 
     const searchUser = ref({
-      email: ''
+      email: '',
     })
 
     return { user, searchUser }
