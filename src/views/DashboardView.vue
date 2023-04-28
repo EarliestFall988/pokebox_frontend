@@ -32,6 +32,9 @@
 
         <button @click="toggleTab(3)" v-if="selectedTab != 3" class="tab">Poke Type</button>
         <a v-else class="tab tab-active">Poke Type</a>
+
+        <button @click="toggleTab(4)" v-if="selectedTab != 4" class="tab">Average User Level</button>
+        <a v-else class="tab tab-active">Average User Level</a>
       </div>
       <div>
         <AccountsListVue :accounts="accounts" v-if="selectedTab === 0" />
@@ -225,6 +228,47 @@
             </div>
           </div>
         </div>
+        <div v-if="selectedTab == 4">
+          <div class="flex p-5 w-4/5 justify-between items-end">
+            <button
+              @click="fetchAverage"
+              class="bg-blue-800 hover:scale-110 duration-150 hover:bg-blue-500 text-white font-bold btn btn-wide"
+            >
+              <div v-if="!loadingAverage">Go!</div>
+              <div v-else>
+                <LoadingSpinnerView />
+              </div>
+            </button>
+          </div>
+
+          <div class="w-full">
+            <div v-if="!loadingAverage">
+              <div v-if="pokeRank.length === 0" class="flex justify-center items-center">
+                <p
+                  class="mt-2 text-lg text-info italic bg-gray-800/50 w-full text-center py-5 rounded-lg"
+                >
+                  No Items to view...yet
+                </p>
+              </div>
+              <div v-else>
+                <div class="grid grid-cols-3 w-full p-2 text-white m-1 rounded">
+                  <p class="text-left">Username</p>
+                  <p class="text-right">Average Level</p>
+                </div>
+
+                <!-- {{ allItems }} -->
+
+                <div
+                  class="grid grid-cols-3 w-full p-2 bg-gray-800 text-white m-1 rounded"
+                  v-for="a in Object.keys(allAvergae)"
+                >
+                  <p class="truncate"> {{ a }} </p>
+                  <p class="text-right truncate">{{ allAvergae[a] }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>
@@ -312,6 +356,11 @@ const pokeRank = ref([])
 const searchPokemonName = ref('ditto')
 
 const allItems = ref([])
+
+const allAvergae = ref([])
+
+const loadingAverage = ref(true)
+
 const loadingItems = ref(false)
 
 let fetchUsers = async () => {
@@ -341,7 +390,34 @@ let fetchUsers = async () => {
     .catch((err) => console.log(err))
 }
 
+let fetchAverage = async () => {
+  console.log('attempting rank')
+  errorText.value = ''
 
+  await fetch('https://localhost:7071/api/v1/Pokemon/AverageLevel', {
+    method: 'GET',
+    headers: {
+      'Content-Type': 'application/json',
+      SessionID: user.session
+    }
+  })
+    .then((response) => {
+      console.log(response)
+      response.json().then((data) => {
+        console.log(data)
+        if (data.err) {
+          if (data.err) errorText.value = data.err
+          else errorText.value = data.err
+        } else {
+          console.log(data)
+          allAvergae.value = data
+        }
+      })
+    })
+    .catch((err) => console.log(err))
+
+    loadingAverage.value = false
+}
 
 let fetchRank = async () => {
   console.log('attempting rank')
