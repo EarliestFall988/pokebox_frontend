@@ -18,8 +18,11 @@
       </div>
     </div>
     <div class="flex my-3 border-l-2 rounded mt-4 border-blue-500">
-      <button class="btn btn-info mx-2">Add New Pokemon</button>
-      <button class="btn btn-info mx-2">Add New Items</button>
+      <button class="btn btn-info mx-2">
+        <font-awesome-icon icon="add" class="w-4 h-4 mr-2" />
+        Add New Pokemon
+      </button>
+      <!-- <button class="btn btn-info mx-2">Add New Item</button> -->
     </div>
   </div>
 
