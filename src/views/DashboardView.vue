@@ -18,7 +18,7 @@
       </div>
     </div>
     <div class="flex my-3 border-l-2 rounded mt-4 border-blue-500">
-      <RouterLink class="btn btn-primary" to="../AddItemOwned"> 
+      <RouterLink class="btn btn-primary" to="../AddItem"> 
         <font-awesome-icon icon="add" class="w-4 h-4 mr-2" /> 
         Release Item Into Wild
       </RouterLink>
