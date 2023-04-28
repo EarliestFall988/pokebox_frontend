@@ -9,6 +9,14 @@
             </button>
           </div> -->
         </div>
+
+        <div class = "flex top-2">
+          <RouterLink class="btn btn-primary" to="../AddPokemonOwned"> 
+            <font-awesome-icon icon="add" class="w-4 h-4 mr-2" /> 
+            Add Pokemon
+          </RouterLink>
+        </div>
+
       </PanelView>
     </div>
     <div class="w-full h-full m-2 rounded-lg p-2 text-white">
@@ -93,6 +101,7 @@ import IconLoader from '../components/IconLoader.vue'
 // import router from '../router'
 import PanelView from '../components/PanelView.vue'
 import FullScreenLoading from '../components/FullScreenLoading.vue'
+import { RouterLink } from 'vue-router'
 
 import { useUserStore } from '../stores/User.js'
 
@@ -169,6 +178,10 @@ let fetchNumPages = async () => {
     .catch((err) => console.log(err))
 
   loading.value = false
+}
+
+let swithToAddPoke = async () => {
+  
 }
 
 let fetchAllPokemonOwned = async () => {
