@@ -49,26 +49,75 @@
           </PokeRankList>
         </div>
         <div v-if="selectedTab == 2">
-          <div class="flex items-center flex-wrap md:grid grid-cols-3 gap-4 my-2">
-            <div class="col-span-2">
-              <!-- <input
+          <div class="flex bg-red-500 pb-5 px-5 justify-between items-center">
+            <!-- <div class="col-span-2"> -->
+            <!-- <input
                 type="text"
                 class="p-2 rounded-lg md:w-full text-white input input-bordered max-w-xs"
                 placeholder="Search Pokemon..."
                 v-model="searchPokemonName"
-              />
-              <button
+              /> -->
+            <div class="bg-red-500">
+              <div class="form-control w-full max-w-xs">
+                <label class="label">
+                  <span class="label-text">Month</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Type here"
+                  class="input input-bordered w-full max-w-xs"
+                />
+              </div>
+
+              <div class="form-control w-full max-w-xs">
+                <label class="label">
+                  <span class="label-text">Year</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Type here"
+                  class="input input-bordered w-full max-w-xs"
+                />
+              </div>
+            </div>
+
+            <font-awesome-icon icon="arrow-right" class="h-8 w-8 text-white" />
+            <div class="flex flex-col justify-end items-end">
+              <div class="form-control w-full max-w-xs">
+                <label class="label">
+                  <span class="label-text">Month</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Type here"
+                  class="input input-bordered w-full max-w-xs"
+                />
+              </div>
+
+              <div class="form-control w-full max-w-xs">
+                <label class="label">
+                  <span class="label-text">Year</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Type here"
+                  class="input input-bordered w-full max-w-xs"
+                />
+              </div>
+            </div>
+
+            <!-- <button
                 @click="$emit('fetchPokemonRank')"
                 class="btn btn-primary text-white shadow mx-2"
               > 
               Search
               </button> -->
-              <button @click="fetchItemsList" class="btn text-white shadow mx-2">Load Items</button>
-              <!-- <RouterLink to="/register">Search</RouterLink> -->
-            </div>
-            <div class="flex justify-end px-2 my-auto">
-              <!-- <RouterLink to="/register">Create Account</RouterLink> -->
-            </div>
+            <!-- <button @click="fetchItemsList" class="btn text-white shadow mx-2">Load Items</button> -->
+            <!-- <RouterLink to="/register">Search</RouterLink> -->
+            <!-- </div> -->
+            <!-- <div class="flex justify-end px-2 my-auto">
+             <RouterLink to="/register">Create Account</RouterLink> 
+            </div> -->
           </div>
           <div class="w-full">
             <div v-if="!loadingItems">
@@ -99,7 +148,6 @@
                 </div>
               </div>
             </div>
-
             <div v-else>
               <LoadingSpinnerView />
             </div>
@@ -144,7 +192,7 @@ const toggleTab = async (tab) => {
   if (tab == 0) {
     await fetchUsers()
   }
-  if(tab == 2) {
+  if (tab == 2) {
     await fetchItemsList()
   }
 }

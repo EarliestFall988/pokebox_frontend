@@ -63,6 +63,11 @@ const router = createRouter({
       component: () => import('../views/ItemsView.vue')
     },
     {
+      path: '/test',
+      name: 'test',
+      component: () => import('../views/SetupView.vue')
+    },
+    {
       path: '/:catchAll(.*)',
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
