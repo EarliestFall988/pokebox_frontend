@@ -49,26 +49,106 @@
           </PokeRankList>
         </div>
         <div v-if="selectedTab == 2">
-          <div class="flex items-center flex-wrap md:grid grid-cols-3 gap-4 my-2">
-            <div class="col-span-2">
-              <!-- <input
+          <div class="flex p-5 w-4/5 justify-between items-end">
+            <!-- <div class="bg-gray-900/50 p-2 rounded-lg shadow-lg">
+              <h2 class="text-white font-bold text-lg px-1">From</h2>
+              <div class="form-control w-full max-w-xs">
+                <label class="label">
+                  <span class="label-text">Month</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Type here"
+                  class="input input-bordered w-full max-w-xs"
+                />
+              </div>
+
+              <div class="form-control w-full max-w-xs">
+                <label class="label">
+                  <span class="label-text">Year</span>
+                </label>
+                <input
+                  type="text"
+                  placeholder="Type here"
+                  class="input input-bordered w-full max-w-xs"
+                />
+              </div>
+            </div>
+
+            <font-awesome-icon icon="arrow-right" class="h-8 w-8 text-white" />
+            <div class="bg-gray-900/50 p-2 rounded-lg shadow-lg">
+              <h2 class="text-white font-bold text-lg px-1">To</h2>
+              <div class="flex flex-col justify-end items-end">
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Month</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Type here"
+                    class="input input-bordered w-full max-w-xs"
+                  />
+                </div>
+
+                <div class="form-control w-full max-w-xs">
+                  <label class="label">
+                    <span class="label-text">Year</span>
+                  </label>
+                  <input
+                    type="text"
+                    placeholder="Type here"
+                    class="input input-bordered w-full max-w-xs"
+                  />
+                </div>
+              </div>
+            </div> -->
+
+            <div class="form-control w-full max-w-xs">
+              <label class="label">
+                <span class="label-text">Month</span>
+              </label>
+              <input
                 type="text"
-                class="p-2 rounded-lg md:w-full text-white input input-bordered max-w-xs"
-                placeholder="Search Pokemon..."
-                v-model="searchPokemonName"
+                placeholder="Type here"
+                class="input input-bordered w-full max-w-xs"
+                v-model="itemsListMonth"
               />
-              <button
+            </div>
+
+            <div class="form-control w-full max-w-xs">
+              <label class="label">
+                <span class="label-text">Year</span>
+              </label>
+              <input
+                type="text"
+                placeholder="Type here"
+                class="input input-bordered w-full max-w-xs"
+                v-model="itemsListYear"
+              />
+            </div>
+
+            <button
+              @click="fetchItemsList"
+              class="bg-blue-800 hover:scale-110 duration-150 hover:bg-blue-500 text-white font-bold btn btn-wide"
+            >
+              <div v-if="!loadingItems">Go!</div>
+              <div v-else>
+                <LoadingSpinnerView />
+              </div>
+            </button>
+
+            <!-- <button
                 @click="$emit('fetchPokemonRank')"
                 class="btn btn-primary text-white shadow mx-2"
               > 
               Search
               </button> -->
-              <button @click="fetchItemsList" class="btn text-white shadow mx-2">Load Items</button>
-              <!-- <RouterLink to="/register">Search</RouterLink> -->
-            </div>
-            <div class="flex justify-end px-2 my-auto">
-              <!-- <RouterLink to="/register">Create Account</RouterLink> -->
-            </div>
+            <!-- <button @click="fetchItemsList" class="btn text-white shadow mx-2">Load Items</button> -->
+            <!-- <RouterLink to="/register">Search</RouterLink> -->
+            <!-- </div> -->
+            <!-- <div class="flex justify-end px-2 my-auto">
+             <RouterLink to="/register">Create Account</RouterLink> 
+            </div> -->
           </div>
           <div class="w-full">
             <div v-if="!loadingItems">
@@ -98,10 +178,6 @@
                   <p class="text-right truncate">{{ a.ItemCount }}</p>
                 </div>
               </div>
-            </div>
-
-            <div v-else>
-              <LoadingSpinnerView />
             </div>
           </div>
         </div>
@@ -144,7 +220,7 @@ const toggleTab = async (tab) => {
   if (tab == 0) {
     await fetchUsers()
   }
-  if(tab == 2) {
+  if (tab == 2) {
     await fetchItemsList()
   }
 }
@@ -257,16 +333,31 @@ let fetchPokemonRank = async () => {
   loadingPokemonRank.value = false
 }
 
+const itemsListMonth = ref('')
+const itemsListYear = ref('')
+
 let fetchItemsList = async () => {
   loadingItems.value = true
 
-  await fetch('https://localhost:7071/api/v1/Items/TopItem?year=2023&month=4', {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      SessionID: user.session
+  if (itemsListMonth.value == '' || itemsListYear.value == '') {
+    loadingItems.value = false
+    allItems.value = []
+    return
+  }
+
+  await fetch(
+    'https://localhost:7071/api/v1/Items/TopItem?year=' +
+      itemsListYear.value +
+      '&month=' +
+      itemsListMonth.value,
+    {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+        SessionID: user.session
+      }
     }
-  })
+  )
     .then((response) => {
       response.json().then((data) => {
         console.log(data)

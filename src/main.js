@@ -81,6 +81,8 @@ library.add(faTriangleExclamation)
 library.add(faArrowLeft)
 library.add(faArrowRight)
 
+library.add(faArrowRight)
+
 library.add(faUser)
 
 import App from './App.vue'
