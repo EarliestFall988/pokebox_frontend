@@ -34,30 +34,30 @@
         >
           <IconLoader
             v-for="p in pokemonOwned"
-            :key="p.PokeOwnedID"
+            :key="p"
             class="m-2"
-            :url="p.ImageLink"
-            :name="p.NickName"
-            :legendary="p.IsLegendary"
-            @select="selectPokemon(p.PokeOwnedID)"
+            :url="p.ItemTypeName"
+            :name="p.ItemName"
+            :item="true"
+            @select="selectItem(p.ItemName)"
           />
         </TransitionGroup>
       </div>
       <div v-else class="flex justify-center items-center">
         <p class="mt-2 text-lg text-info italic bg-gray-800/50 w-full text-center py-5 rounded-lg">
-          No pokemon to view...yet
+          No items to view...yet
         </p>
       </div>
     </div>
-    <div v-if="selectedPokemon != null" class="hidden md:flex">
+    <div v-if="selectedItemName != null" class="hidden md:flex">
       <!-- <DetailsPanel /> -->
       <PanelView
-        class="bg-gray-800/50 rounded-none m-0"
-        title="Pokemon"
-        description="take a look at what you got."
+        class="bg-gray-800/50 rounded-none m-0 w-56 flex justify-start"
+        title="Items"
+        description="Tools of the trade."
       >
         <Transition name="list" appear mode="out-in">
-          <PokemonDetailsView
+          <!-- <PokemonDetailsView
             v-if="!selectedPokemon.IsLegendary"
             :selectedPokemon="selectedPokemon"
           />
@@ -65,7 +65,13 @@
             v-else
             :selectedPokemon="selectedPokemon"
             class="bg-gradient-to-br from-yellow-800 to-red-900/20 border-t-2 border-yellow-600"
-          />
+          /> -->
+          <div class="flex flex-col justify-center items-start">
+            <img :src="selectedItemURL" class="w-32 h-32" />
+            <p class="text-center w-[100%] font-bold text-lg truncate">
+              {{ selectedItemName.replace('-', ' ') }}
+            </p>
+          </div>
         </Transition>
       </PanelView>
     </div>
@@ -105,12 +111,20 @@ const loadingData = ref(true)
 
 const pokemonOwned = ref([])
 
-const selectedPokemon = ref(null)
+const selectedItemName = ref(null)
+const selectedItemURL = ref(null)
 
-const selectPokemon = function (id) {
-  selectedPokemon.value = pokemonOwned.value.find((p) => p.PokeOwnedID === id)
-  console.log(selectedPokemon.value)
+const selectItem = function (name) {
+  var res = pokemonOwned.value.find((p) => p.ItemName === name)
+
+  selectedItemName.value = res.ItemName
+  selectedItemURL.value = res.ItemTypeName
 }
+
+// const selectPokemon = function (id) {
+//   selectedPokemon.value = pokemonOwned.value.find((p) => p.PokeOwnedID === id)
+//   console.log(selectedPokemon.value)
+// }
 
 const username = computed(() => {
   return searchUser.email
@@ -143,7 +157,7 @@ let fetchNumPages = async () => {
   errorText.value = ''
 
   await fetch(
-    'https://localhost:7071/api/v1/Pokemon/GetNumberOfPagesPokeOwned?username=' +
+    'https://localhost:7071/api/v1/Items/GetNumberOfPagesItems?username=' +
       username.value +
       '&pageNum=' +
       currentPageNumber.value,
@@ -156,6 +170,8 @@ let fetchNumPages = async () => {
     }
   )
     .then((response) => {
+      console.log(response)
+
       response.json().then((data) => {
         console.log(data)
         if (data.err) {
@@ -178,7 +194,7 @@ let fetchAllPokemonOwned = async () => {
   errorText.value = ''
 
   await fetch(
-    'https://localhost:7071/api/v1/Pokemon/SelectAllPokeOwnedOffset?username=' +
+    'https://localhost:7071/api/v1/Items/SelectAllItemOwnedOffset?username=' +
       username.value +
       '&pageNum=' +
       currentPageNumber.value,
@@ -191,6 +207,8 @@ let fetchAllPokemonOwned = async () => {
     }
   )
     .then((response) => {
+      console.log(response)
+
       response.json().then((data) => {
         console.log(data)
         if (data.err) {

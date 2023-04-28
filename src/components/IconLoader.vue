@@ -3,7 +3,7 @@ import { defineProps, defineEmits } from 'vue'
 import { useImage } from '@vueuse/core'
 import LoadingSpinnerViewVue from './LoadingSpinnerView.vue'
 
-const props = defineProps(['url', 'name', 'legendary'])
+const props = defineProps(['url', 'name', 'legendary', 'item'])
 
 defineEmits(['select'])
 
@@ -20,9 +20,14 @@ const { isLoading } = useImage({ src: props.url })
           <LoadingSpinnerViewVue />
         </div>
         <div v-else class="flex flex-wrap items-center justify-center">
-          <img :src="url" class="w-9/12 h-9/12" :alt="name" />
-          <p class="truncate text-ellipsis w-full text-center">{{ name }}</p>
-
+          <div v-if="!item">
+            <img :src="url" class="w-9/12 h-9/12" :alt="name" />
+            <p class="truncate text-ellipsis w-full text-center">{{ name }}</p>
+          </div>
+          <div v-else class="flex flex-col justify-between items-center w-20 h-20 p-2" >
+            <img :src="url" class="w-10 h-10" :alt="name" />
+            <p class="truncate text-ellipsis w-full text-center">{{ name.replace('-', ' ') }}</p>
+          </div>
         </div>
       </div>
     </Transition>
