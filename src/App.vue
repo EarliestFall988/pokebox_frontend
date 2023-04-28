@@ -50,7 +50,7 @@ const pokemonNav = function () {
             <li v-else>
               <RouterLink to="/pokemon">Your Pokemon</RouterLink>
               <!-- <button @click="pokemonNav" class="btn btn-ghost">Your Pokemon</button> -->
-              <RouterLink v-if="user.isAdmin" to="/dashboard">Dashboard</RouterLink>
+              <RouterLink v-if="!user.isAdmin" to="/dashboard">Dashboard</RouterLink>
               <button @click="logout">Logout</button>
             </li>
           </ul>
