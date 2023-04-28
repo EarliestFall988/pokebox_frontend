@@ -40,7 +40,7 @@
                                 <option value="2">Unknown</option>
                             </select>
                         </div>
-                        
+
                         <div class="form-control">
                             <label class="label">
                                 <span class="label-text">Level</span>
@@ -48,7 +48,7 @@
                             <input v-model="level" type="text" placeholder="Level" class="input input-bordered" />
                         </div>
 
-
+                        <p class="text-error text-center italic">{{ err }}</p>
                         <div class="form-control mt-6">
                             <button @click.prevent="attemptAddPokemonOwned"
                                     class="btn btn-primary bg-gradient-to-bl text-white font-bold from-blue-600 via-purple-500 to-red-400 border-0">
@@ -68,11 +68,19 @@
 </template>
 
 <script setup>
+    import { ref, onMounted, computed } from 'vue'
     import { createRouter } from 'vue-router'
-    import { ref } from 'vue'
     import Modal from '../components/ModalComponent.vue'
     import router from '../router'
     import SpinnerComponent from '../components/SpinnerComponent.vue'
+
+    import { useUserStore } from '../stores/User.js'
+
+    const user = useUserStore().user
+    const searchUser = useUserStore().searchUser
+    const username = computed(() => {
+        return searchUser.email
+    })
 
     const pokemonName = ref('')
     const nickname = ref('')
@@ -93,20 +101,46 @@
         body.value = ''
     }
 
-    let attemptLogin = async () => {
-        //   console.log('attempting login')
+    let attemptAddPokemonOwned = async () => {
+        console.log('attempting poke add')
         loading.value = true
 
         try {
+            if (pokemonName.value == '') {
+                err.value = "Pokemon Name is empty"
+                return
+            }
+            if (nickname.value == '') {
+                err.value = "Nickname is empty"
+                return
+            }
+            if (gender.value == '') {
+                err.value = "Gender is empty"
+                return
+            }
+            if (level.value == '') {
+                err.value = "Level is empty"
+                return
+            }
+            if (gender.value == '') {
+                err.value = "Gender is empty"
+                return
+            }
+            if (level.value == '') {
+                err.value = "Level is empty"
+                return
+            }
+
+            err.value = ""
             await fetch('https://localhost:7071/api/v1/Pokemon/CreatePokeOwned?username=' +
                 username.value +
                 '&pokemonName=' +
                 pokemonName.value +
-                '&name' +
+                '&name=' +
                 nickname.value +
-                '&gender' +
+                '&gender=' +
                 gender.value +
-                '&level' +
+                '&level=' +
                 level.value,
                 {
                     method: 'POST',
@@ -117,14 +151,20 @@
                 })
                 .then((response) => {
                     response.json().then((data) => {
-                        console.log(data)
-                        if (data.status == '400') {
+                        console.log("full " + data)
+                        console.log("Test " + data.err)
+                        if (data.err) {
+
+                            err.value = data.err
                             // console.log('error' + data.err)
-                            alert(data.err)
+
+                            //console.log('fail')
+
                         } else {
-                            router.push('/')
                             header.value = 'Success!'
                             body.value = 'You have successfully added your Pokemon!'
+                            router.push('/pokemon')
+
                         }
                     })
                 })
