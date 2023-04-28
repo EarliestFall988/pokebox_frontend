@@ -14,7 +14,7 @@
         </h4>
         <p class="text-white">Total Accounts</p>
       </div>
-      <PieChart loading="false" />
+      <PieChart chartTitle="Type Breakdown" loading="false" />
       <LineChart chartTitle="stats line chart example" loading="false" />
     </div>
   </div>
@@ -81,9 +81,9 @@
               </div>
               <div v-else>
                 <div class="grid grid-cols-3 w-full p-2 text-white m-1 rounded">
-                  <p>ItemOwnedID</p>
-                  <p class="text-center">UserID</p>
-                  <p class="text-right">ItemID</p>
+                  <p>Rank</p>
+                  <p class="text-center">Item Name</p>
+                  <p class="text-right"># of Item</p>
                 </div>
 
                 <!-- {{ allItems }} -->
@@ -93,9 +93,9 @@
                   :key="a"
                   class="grid grid-cols-3 w-full p-2 bg-gray-800 text-white m-1 rounded"
                 >
-                  <p class="truncate">#{{ a.ItemOwnedID }}</p>
-                  <p class="text-center truncate">{{ a.UserID }}</p>
-                  <p class="text-right truncate">{{ a.ItemID }}</p>
+                  <p class="truncate">#{{ a.Rank }}</p>
+                  <p class="text-center truncate">{{ a.ItemName }}</p>
+                  <p class="text-right truncate">{{ a.ItemCount }}</p>
                 </div>
               </div>
             </div>
@@ -143,6 +143,9 @@ const toggleTab = async (tab) => {
   selectedTab.value = tab
   if (tab == 0) {
     await fetchUsers()
+  }
+  if(tab == 2) {
+    await fetchItemsList()
   }
 }
 
@@ -257,7 +260,7 @@ let fetchPokemonRank = async () => {
 let fetchItemsList = async () => {
   loadingItems.value = true
 
-  await fetch('https://localhost:7071/api/v1/Items/SelectAllItemsOwned', {
+  await fetch('https://localhost:7071/api/v1/Items/TopItem?year=2023&month=4', {
     method: 'GET',
     headers: {
       'Content-Type': 'application/json',
