@@ -17,6 +17,10 @@
     </div>
   </div>
 
+  <div class="flex justify-center items-center">
+    <button class="bg-blue-800 hover:scale-110 duration-150 hover:bg-blue-500 text-white font-bold btn btn-wide"> Add New Pokemon </button>
+  </div>
+
   <div class="md:w-3/4 m-5 mx-auto">
     <!-- <h2 class="text-lg text-white font-bold mb-2 mx-2">Accounts</h2> -->
     <div class="bg-gray-800/50 p-2 md:rounded-lg">
@@ -243,7 +247,7 @@
 
           <div class="w-full">
             <div v-if="!loadingAverage">
-              <div v-if="pokeRank.length === 0" class="flex justify-center items-center">
+              <div v-if="allAvergae.length === 0" class="flex justify-center items-center">
                 <p
                   class="mt-2 text-lg text-info italic bg-gray-800/50 w-full text-center py-5 rounded-lg"
                 >
@@ -263,7 +267,7 @@
                   v-for="a in Object.keys(allAvergae)"
                 >
                   <p class="truncate"> {{ a }} </p>
-                  <p class="text-right truncate">{{ allAvergae[a] }}</p>
+                  <p class="text-right truncate"> {{ allAvergae[a] }} </p>
                 </div>
               </div>
             </div>
