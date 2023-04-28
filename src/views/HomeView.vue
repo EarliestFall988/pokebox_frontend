@@ -1,11 +1,10 @@
 <template>
-  <main>
+  <main class="overflow-x-hidden overflow-y-hidden">
     <div class="hero min-h-full bg-base-200 z-20">
       <div class="hero-content flex-col lg:flex-row">
         <img
           src="https://www.netclipart.com/pp/f/6-66352_transparent-background-pokemon-clipart-pokemon-character-clip-art.png"
-          class="w-[40%] m-auto lg:flex sm:max-w-sm rounded-lg"
-        />
+          class="w-[40%] m-auto lg:flex sm:max-w-sm rounded-lg" />
         <div>
           <h1 class="text-5xl font-bold">Hello There!</h1>
           <p class="py-6">
@@ -21,9 +20,7 @@
       </div>
     </div>
     <div>
-      <div
-        class="flex flex-wrap justify-around md:my-20 p-5 md:py-20 items-center bg-accent md:rounded shadow b"
-      >
+      <div class="flex flex-wrap justify-around md:my-20 p-5 md:py-20 items-center bg-accent md:rounded shadow b">
         <div class="my-5 mx-2">
           <h3 class="text-3xl font-bold text-white">Live Feed Activity</h3>
           <p class="text-white">Cold, hard data about why Pokébox.zone is all the rage</p>
@@ -64,13 +61,10 @@
         </div>
         <img
           src="https://www.pinclipart.com/picdir/big/527-5272723_pokemon-pikachu-png-clipart-pikachu-transparent-background.png"
-          class="rounded-lg"
-        />
+          class="rounded-lg" />
       </div>
       <div class="text-3xl text-center mt-10 text-white font-bold mb-4">Pricing</div>
-      <div
-        class="flex flex-wrap md:m-5 justify-around items-center bg-accent rounded-lg py-10 text-white"
-      >
+      <div class="flex flex-wrap md:m-5 justify-around items-center bg-accent rounded-lg py-10 text-white">
         <div class="w-60 h-96 rounded-lg p-2">
           <div class="text-center text-lg font-bold m-4">Starter Pack</div>
           <div class="w-60 m-auto h-60">
@@ -110,29 +104,19 @@
         </div>
       </div>
       <div class="flex flex-col md:flex-row items-center md:items-end justify-center p-2">
-        <img
-          src="../assets/graphics/Pokemon-Transparent-Images.png"
-          class="w md:w-[40%] md:m-auto m:max-w-sm rounded-lg scale-150 translate-y-8 -z-10 saturate-150 rotate-3"
-        />
+        <img src="../assets/graphics/Pokemon-Transparent-Images.png"
+          class="w md:w-[40%] md:m-auto m:max-w-sm rounded-lg scale-150 translate-y-8 -z-10 saturate-150 rotate-3" />
         <div class="bg-gray-900/20 backdrop-blur-sm">
           <div>
-            <p
-              class="text-2xl font-bold rotate-12 translate-x-10 translate-y-4 pb-5 text-warning animate-pulse"
-            >
+            <p class="text-2xl font-bold rotate-12 translate-x-10 translate-y-4 pb-5 text-warning animate-pulse">
               Click Right Here
             </p>
-            <font-awesome-icon
-              icon="arrow-down"
-              class="ml-2 w-5 h-5 scale-150 translate-x-16 -translate-y-5 text-warning -rotate-12"
-            />
-            <font-awesome-icon
-              icon="arrow-down"
-              class="ml-2 w-6 h-6 scale-150 translate-x-28 -translate-y-2 text-warning rotate-45"
-            />
+            <font-awesome-icon icon="arrow-down"
+              class="ml-2 w-5 h-5 scale-150 translate-x-16 -translate-y-5 text-warning -rotate-12" />
+            <font-awesome-icon icon="arrow-down"
+              class="ml-2 w-6 h-6 scale-150 translate-x-28 -translate-y-2 text-warning rotate-45" />
           </div>
-          <button
-            class="btn btn-wide btn-primary text-white shadow scale-100 hover:scale-110 transition-all md:mr-10"
-          >
+          <button class="btn btn-wide btn-primary text-white shadow scale-100 hover:scale-110 transition-all md:mr-10">
             <RouterLink to="/register">Check it out!</RouterLink>
             <font-awesome-icon icon="arrow-up-right-from-square" class="ml-2 w-4 h-4" />
           </button>

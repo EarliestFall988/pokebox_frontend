@@ -13,175 +13,169 @@
                             <label class="label">
                                 <span class="label-text">Item Name</span>
                             </label>
-                            <input v-model="itemName"
-                                   type="text"
-                                   placeholder="Item Name"
-                                   class="input input-bordered" />
+                            <input v-model="itemName" type="text" placeholder="Item Name" class="input input-bordered" />
                         </div>
                         <div class="form-control">
                             <label class="label">
                                 <span class="label-text">Description</span>
                             </label>
-                            <input v-model="description"
-                                   type="text"
-                                   placeholder="Description"
-                                   class="input input-bordered" />
+                            <input v-model="description" type="text" placeholder="Description"
+                                class="input input-bordered" />
                         </div>
                         <div class="form-control">
                             <label class="label">
                                 <span class="label-text">Item Type Name</span>
                             </label>
-                            <input v-model="itemTypeName"
-                                   type="text"
-                                   placeholder="Item Type Name"
-                                   class="input input-bordered" />
+                            <input v-model="itemTypeName" type="text" placeholder="Item Type Name"
+                                class="input input-bordered" />
                         </div>
                         <div class="form-control">
                             <label class="label">
                                 <span class="label-text">Item Image Link</span>
                             </label>
-                            <input v-model="itemImageLink"
-                                   type="text"
-                                   placeholder="Item Image Link"
-                                   class="input input-bordered" />
+                            <input v-model="itemImageLink" type="text" placeholder="Item Image Link"
+                                class="input input-bordered" />
                         </div>
 
                         <p class="text-error text-center italic">{{ err }}</p>
                         <div class="form-control mt-6">
                             <button @click.prevent="attemptAddItem"
-                                    class="btn btn-primary bg-gradient-to-bl text-white font-bold from-blue-600 via-purple-500 to-red-400 border-0">
+                                class="btn btn-primary bg-gradient-to-bl text-white font-bold from-blue-600 via-purple-500 to-red-400 border-0">
                                 Collect 'em all!
                             </button>
                         </div>
                     </div>
                 </div>
-                <!--<div v-else>
-                    <SpinnerComponent></SpinnerComponent>
-                </div>-->
             </div>
         </div>
     </div>
 
     <Modal @clear="clear" :header="header" :body="body" />
+
+    <Teleport to="body">
+        <FullScreenLoading v-if="loading" />
+    </Teleport>
 </template>
 
 <script setup>
-    import { ref, onMounted, computed } from 'vue'
-    import { createRouter } from 'vue-router'
-    import Modal from '../components/ModalComponent.vue'
-    import router from '../router'
-    import SpinnerComponent from '../components/SpinnerComponent.vue'
+import { ref, onMounted, computed } from 'vue'
+import { createRouter } from 'vue-router'
+import Modal from '../components/ModalComponent.vue'
+import router from '../router'
+import SpinnerComponent from '../components/SpinnerComponent.vue'
 
-    import { useUserStore } from '../stores/User.js'
+import FullScreenLoading from '../components/FullScreenLoading.vue'
 
-    const user = useUserStore().user
-    const searchUser = useUserStore().searchUser
+import { useUserStore } from '../stores/User.js'
 
-    const itemName = ref('')
-    const description = ref('')
-    const itemTypeName = ref('')
-    const itemImageLink = ref('')
+const user = useUserStore().user
+const searchUser = useUserStore().searchUser
 
-    const err = ref('')
+const itemName = ref('')
+const description = ref('')
+const itemTypeName = ref('')
+const itemImageLink = ref('')
 
-    const header = ref('')
-    const body = ref('')
+const err = ref('')
 
-    const loading = ref(false)
+const header = ref('')
+const body = ref('')
 
-    const clear = () => {
-        header.value = ''
-        body.value = ''
-    }
+const loading = ref(false)
 
-    let attemptAddItem = async () => {
-        console.log('attempting item add')
-        loading.value = true
+const clear = () => {
+    header.value = ''
+    body.value = ''
+}
 
-        try {
-            if (itemName.value == '') {
-                err.value = "Item Name is empty"
-                return
-            }
-            if (description.value == '') {
-                err.value = "Description is empty"
-                return
-            }
-            if (itemTypeName.value == '') {
-                err.value = "Item Type Name is empty"
-                return
-            }
-            if (itemImageLink.value == '') {
-                err.value = "Item Image Link is empty"
-                return
-            }
+let attemptAddItem = async () => {
+    console.log('attempting item add')
+    loading.value = true
 
-            err.value = ""
-            await fetch('https://localhost:7071/api/v1/Items/AddItem?itemName=' +
-                itemName.value +
-                '&description=' +
-                description.value +
-                '&itemTypeName=' +
-                itemTypeName.value +
-                '&itemImageLink=' +
-                itemImageLink.value,
-                {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        SessionID: user.session
-                    },
-                })
-                .then((response) => {
-                    response.json().then((data) => {
-                        console.log("full " + data)
-                        console.log("Test " + data.err)
-                        if (data.err) {
-
-                            err.value = data.err
-                            // console.log('error' + data.err)
-
-                            //console.log('fail')
-
-                        } else {
-                            header.value = 'Success!'
-                            body.value = 'You have successfully added your Item!'
-
-                        }
-                    })
-                })
-                .catch((err) => console.log(err))
-        } catch (err) {
-            console.log(err)
-        } finally {
-            loading.value = false
+    try {
+        if (itemName.value == '') {
+            err.value = "Item Name is empty"
+            return
         }
+        if (description.value == '') {
+            err.value = "Description is empty"
+            return
+        }
+        if (itemTypeName.value == '') {
+            err.value = "Item Type Name is empty"
+            return
+        }
+        if (itemImageLink.value == '') {
+            err.value = "Item Image Link is empty"
+            return
+        }
+
+        err.value = ""
+        await fetch('https://localhost:7071/api/v1/Items/AddItem?itemName=' +
+            itemName.value +
+            '&description=' +
+            description.value +
+            '&itemTypeName=' +
+            itemTypeName.value +
+            '&itemImageLink=' +
+            itemImageLink.value,
+            {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    SessionID: user.session
+                },
+            })
+            .then((response) => {
+                response.json().then((data) => {
+                    console.log("full " + data)
+                    console.log("Test " + data.err)
+                    if (data.err) {
+
+                        err.value = data.err
+                        // console.log('error' + data.err)
+
+                        //console.log('fail')
+
+                    } else {
+                        header.value = 'Success!'
+                        body.value = 'You have successfully added your Item!'
+
+                    }
+                })
+            })
+            .catch((err) => console.log(err))
+    } catch (err) {
+        console.log(err)
+    } finally {
+        loading.value = false
     }
+}
 </script>
 
 <style lang="css">
-    .slide-enter-active,
-    .slide-leave-active {
-        transition: all 0.125s ease-out;
-    }
+.slide-enter-active,
+.slide-leave-active {
+    transition: all 0.125s ease-out;
+}
 
-    .slide-enter-to {
-        /* position: absolute; */
-        right: 0;
-    }
+.slide-enter-to {
+    /* position: absolute; */
+    right: 0;
+}
 
-    .slide-enter-from {
-        /* position: absolute; */
-        right: -100%;
-    }
+.slide-enter-from {
+    /* position: absolute; */
+    right: -100%;
+}
 
-    .slide-leave-to {
-        /* position: absolute; */
-        left: -100%;
-    }
+.slide-leave-to {
+    /* position: absolute; */
+    left: -100%;
+}
 
-    .slide-leave-from {
-        /* position: absolute; */
-        left: 0;
-    }
+.slide-leave-from {
+    /* position: absolute; */
+    left: 0;
+}
 </style>
