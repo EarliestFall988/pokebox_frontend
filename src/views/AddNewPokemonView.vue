@@ -2,8 +2,8 @@
     <div class="hero min-h-screen bg-base-200">
         <div class="hero-content flex-col lg:flex-row-reverse">
             <div class="text-center lg:text-left">
-                <h1 class="text-5xl font-bold">/Add Your Item</h1>
-                <p class="py-6">Add your newest Item!</p>
+                <h1 class="text-5xl font-bold">/Add Your Pokemon</h1>
+                <p class="py-6">Add your newest Pokemon!</p>
             </div>
             <div class="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                 <!-- <Transition name="slide" mode="out-in"> -->
@@ -11,44 +11,42 @@
                     <div class="card-body">
                         <div class="form-control">
                             <label class="label">
-                                <span class="label-text">Item Name</span>
+                                <span class="label-text">Pokemon Name</span>
                             </label>
-                            <input v-model="itemName" type="text" placeholder="Item Name" class="input input-bordered" />
+                            <input v-model="pokemonName" type="text" placeholder="Pokemon Name" class="input input-bordered" />
                         </div>
                         <div class="form-control">
                             <label class="label">
-                                <span class="label-text">Description</span>
+                                <span class="label-text">PokeDex Number</span>
                             </label>
-                            <input v-model="description" type="text" placeholder="Description"
-                                class="input input-bordered" />
+                            <input v-model="pokeDexNumber" type="text" placeholder="PokeDex Number" class="input input-bordered" />
                         </div>
                         <div class="form-control">
                             <label class="label">
-                                <span class="label-text">Item Type Name</span>
+                                <span class="label-text">Pokemon Image Link</span>
                             </label>
-                            <input v-model="itemTypeName" type="text" placeholder="Item Type Name"
-                                class="input input-bordered" />
+                            <input v-model="imageLink" type="text" placeholder="Pokemon Image Link"
+                                   class="input input-bordered" />
                         </div>
                         <div class="form-control">
                             <label class="label">
-                                <span class="label-text">Item Image Link</span>
+                                <span class="label-text">Legendary</span>
                             </label>
-                            <input v-model="itemImageLink" type="text" placeholder="Item Image Link"
-                                class="input input-bordered" />
+                            <input v-model="legendary" type="checkbox" class="toggle" unchecked />
                         </div>
+                    </div>
 
                         <p class="text-error text-center italic">{{ err }}</p>
                         <div class="form-control mt-6">
                             <button @click.prevent="attemptAddItem"
-                                class="btn btn-primary bg-gradient-to-bl text-white font-bold from-blue-600 via-purple-500 to-red-400 border-0">
-                                Collect 'em all!
+                                    class="btn btn-primary bg-gradient-to-bl text-white font-bold from-blue-600 via-purple-500 to-red-400 border-0">
+                                Find 'em all!
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
     <Modal @clear="clear" :header="header" :body="body" />
 
@@ -71,10 +69,11 @@ import { useUserStore } from '../stores/User.js'
 const user = useUserStore().user
 const searchUser = useUserStore().searchUser
 
-const itemName = ref('')
-const description = ref('')
+const pokemonName = ref('')
+const pokeDexNumber = ref('')
 const itemTypeName = ref('')
-const itemImageLink = ref('')
+const imageLink = ref('')
+const legendary = ref('')
 
 const err = ref('')
 
@@ -92,61 +91,57 @@ let attemptAddItem = async () => {
     console.log('attempting item add')
     loading.value = true
 
+    
+        if (pokemonName.value == '') {
+            err.value = "Pokemon Name is empty"
+            return
+        }
+        if (pokeDexNumber.value == '') {
+            err.value = "PokeDex Number is empty"
+            return
+        }
+        if (imageLink.value == '') {
+            err.value = "Image Link is empty"
+            return
+        }
     try {
-        if (itemName.value == '') {
-            err.value = "Item Name is empty"
-            return
-        }
-        if (description.value == '') {
-            err.value = "Description is empty"
-            return
-        }
-        if (itemTypeName.value == '') {
-            err.value = "Item Type Name is empty"
-            return
-        }
-        if (itemImageLink.value == '') {
-            err.value = "Item Image Link is empty"
-            return
-        }
-
+        console.log('AddPokemon')
         err.value = ""
-        await fetch('https://localhost:7071/api/v1/Items/AddItem?itemName=' +
-            itemName.value +
-            '&description=' +
-            description.value +
-            '&itemTypeName=' +
-            itemTypeName.value +
-            '&itemImageLink=' +
-            itemImageLink.value,
-            {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    SessionID: user.session
-                },
-            })
-            .then((response) => {
-                response.json().then((data) => {
-                    console.log("full " + data)
-                    console.log("Test " + data.err)
-                    if (data.err) {
-
-                        err.value = data.err
-                        // console.log('error' + data.err)
-
-                        //console.log('fail')
-
-                    } else {
-                        header.value = 'Success!'
-                        body.value = 'You have successfully added your Item!'
-                        router.push('/dashboard')
-                    }
+            await fetch('https://localhost:7071/api/v1/Pokemon/AddPokemon?pokemonName=' +
+                pokemonName.value +
+                '&pokedexNumber=' +
+                pokeDexNumber.value +
+                '&imageLink=' +
+                imageLink.value +
+                '&isLegendary=' +
+                legendary.value,
+                {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        SessionID: user.session
+                    },
                 })
-            })
+                .then((response) => {
+                    response.json().then((data) => {
+                        console.log("full1 " + data)
+                        console.log("Test1 " + data.err)
+                        if (data.err) {
+
+                            err.value = data.err
+
+                        }
+                        else {
+                            header.value = 'Success!'
+                            body.value = 'You have successfully added your Pokemon Now Go Add its Types!'
+                            router.push('/AddPokemonsType')
+                        }
+                    })
+                })
             .catch((err) => console.log(err))
     } catch (err) {
         console.log(err)
+
     } finally {
         loading.value = false
     }

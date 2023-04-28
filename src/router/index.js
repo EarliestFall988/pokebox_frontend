@@ -58,6 +58,19 @@ const router = createRouter({
           component: () => import('../views/AddNewItemView.vue'),
           meta: {}
       },
+      {
+          path: '/AddPokemon',
+          name: 'AddPokemon',
+          component: () => import('../views/AddNewPokemonView.vue'),
+          meta: {}
+      },
+
+      {
+          path: '/AddPokemonsType',
+          name: 'AddPokemonsType',
+          component: () => import('../views/AddNewPokeTypeView.vue'),
+          meta: {}
+      },
     // {
     //   path: '/pokemon',
     //   name: 'pokemon',

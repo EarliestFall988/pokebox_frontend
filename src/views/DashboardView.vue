@@ -5,25 +5,39 @@
   </div>
 
   <div class="md:w-3/4 md:m-auto">
-    <!-- <h2 class="text-lg text-white font-bold mb-2 mx-2">Stats</h2> -->
+      <!-- <h2 class="text-lg text-white font-bold mb-2 mx-2">Stats</h2> -->
 
-    <div class="p-2 md:rounded-lg bg-gray-800/50 mt-5 flex items-center">
-      <div class="flex flex-wrap justify-around items-center">
-        <div class="text-center bg-gray-800 rounded p-2">
-          <h4 class="text-3xl font-bold text-white w-30 h-30 my-4">
-            {{ accounts.length }}
-          </h4>
-          <p class="text-white">Total Accounts</p>
-        </div>
+      <div class="p-2 md:rounded-lg bg-gray-800/50 mt-5 flex items-center">
+          <div class="flex flex-wrap justify-around items-center">
+              <div class="text-center bg-gray-800 rounded p-2">
+                  <h4 class="text-3xl font-bold text-white w-30 h-30 my-4">
+                      {{ accounts.length }}
+                  </h4>
+                  <p class="text-white">Total Accounts</p>
+              </div>
+          </div>
       </div>
-    </div>
-    <div class="flex my-3 border-l-2 rounded mt-4 border-blue-500">
-      <RouterLink class="btn btn-primary" to="../AddItem"> 
-        <font-awesome-icon icon="add" class="w-4 h-4 mr-2" /> 
-        Release Item Into Wild
-      </RouterLink>
-      <!-- <button class="btn btn-info mx-2">Add New Item</button> -->
-    </div>
+      <div class="flex my-3 border-l-2 rounded mt-4 border-blue-500">
+          <RouterLink class="btn btn-primary" to="../AddItem">
+              <font-awesome-icon icon="add" class="w-4 h-4 mr-2" />
+              Release Item Into Wild
+          </RouterLink>
+          <!-- <button class="btn btn-info mx-2">Add New Item</button> -->
+      </div>
+      <div class="flex my-3 border-l-2 rounded mt-4 border-blue-500">
+          <RouterLink class="btn btn-primary" to="../AddPokemon">
+              <font-awesome-icon icon="add" class="w-4 h-4 mr-2" />
+              Release Pokemon Into Wild
+          </RouterLink>
+          <!-- <button class="btn btn-info mx-2">Add New Item</button> -->
+      </div>
+      <div class="flex my-3 border-l-2 rounded mt-4 border-blue-500">
+          <RouterLink class="btn btn-primary" to="../AddPokemonsType">
+              <font-awesome-icon icon="add" class="w-4 h-4 mr-2" />
+              Add Released Pokemons Types
+          </RouterLink>
+          <!-- <button class="btn btn-info mx-2">Add New Item</button> -->
+      </div>
   </div>
 
   <div class="md:w-3/4 m-5 mx-auto">
