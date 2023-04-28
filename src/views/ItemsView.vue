@@ -9,6 +9,14 @@
             </button>
           </div> -->
         </div>
+
+        <div class = "flex top-2">
+          <RouterLink class="btn btn-primary" to="../AddItemOwned"> 
+            <font-awesome-icon icon="add" class="w-4 h-4 mr-2" /> 
+            Add Item
+          </RouterLink>
+        </div>
+
       </PanelView>
     </div>
     <div class="w-full h-full m-2 rounded-lg p-2 text-white">
@@ -94,6 +102,9 @@
 
 <script setup>
 import { ref, onMounted, computed } from 'vue'
+
+import { RouterLink } from 'vue-router'
+
 // import LoadingSpinnerView from '../components/LoadingSpinnerView.vue'
 import IconLoader from '../components/IconLoader.vue'
 // import router from '../router'
