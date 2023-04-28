@@ -6,13 +6,13 @@ defineProps(['gender'])
 
 <template>
   <div>
-    <div v-if="gender === 1">
+    <div v-if="gender == 1">
       <font-awesome-icon icon="mars" class="w-4 h-4" />
     </div>
-    <div v-else-if="gender === 0">
+    <div v-else-if="gender == 0">
       <font-awesome-icon icon="venus" class="w-4 h-4" />
     </div>
-    <div v-else-if="gender == '2'">
+    <div v-else-if="gender == 2">
       <font-awesome-icon icon="venus-mars" class="w-4 h-4" />
     </div>
     <div v-else>
