@@ -7,20 +7,18 @@
   <div class="md:w-3/4 md:m-auto">
     <!-- <h2 class="text-lg text-white font-bold mb-2 mx-2">Stats</h2> -->
 
-    <div class="p-2 md:rounded-lg bg-gray-800/50 mt-5 flex items-center">
-      <div class="flex flex-wrap justify-around items-center">
-        <div class="text-center bg-gray-800 rounded p-2">
-          <h4 class="text-3xl font-bold text-white w-30 h-30 my-4">
-            {{ accounts.length }}
-          </h4>
-          <p class="text-white">Total Accounts</p>
-        </div>
+    <div class="p-2 my-1 md:rounded-lg bg-gray-800/50 flex flex-wrap justify-around items-center">
+      <div class="text-center bg-gray-800 p-4 rounded">
+        <h4 class="text-3xl font-bold text-white w-30 h-30 my-4">
+          {{ accounts.length }}
+        </h4>
+        <p class="text-white">Total Accounts</p>
       </div>
     </div>
-    <div class="flex my-3 border-l-2 rounded mt-4 border-blue-500">
-      <button class="btn btn-info mx-2">Add New Pokemon</button>
-      <button class="btn btn-info mx-2">Add New Items</button>
-    </div>
+  </div>
+
+  <div class="flex justify-center items-center">
+    <button class="bg-blue-800 hover:scale-110 duration-150 hover:bg-blue-500 text-white font-bold btn btn-wide"> Add New Pokemon </button>
   </div>
 
   <div class="md:w-3/4 m-5 mx-auto">
@@ -252,7 +250,7 @@
 
           <div class="w-full">
             <div v-if="!loadingAverage">
-              <div v-if="pokeRank.length === 0" class="flex justify-center items-center">
+              <div v-if="allAvergae.length === 0" class="flex justify-center items-center">
                 <p
                   class="mt-2 text-lg text-info italic bg-gray-800/50 w-full text-center py-5 rounded-lg"
                 >

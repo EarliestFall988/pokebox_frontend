@@ -45,7 +45,13 @@ const router = createRouter({
         name: 'AddPokemonOwned',
         component: () => import('../views/AddPokemonOwnedView.vue'),
         meta: {}
-    },
+      },
+      {
+          path: '/AddItemOwned',
+          name: 'AddItemOwned',
+          component: () => import('../views/AddItemOwnedView.vue'),
+          meta: {}
+      },
     // {
     //   path: '/pokemon',
     //   name: 'pokemon',
