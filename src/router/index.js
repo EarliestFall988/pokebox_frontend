@@ -52,6 +52,12 @@ const router = createRouter({
           component: () => import('../views/AddItemOwnedView.vue'),
           meta: {}
       },
+      {
+          path: '/AddItem',
+          name: 'AddItem',
+          component: () => import('../views/AddNewItemView.vue'),
+          meta: {}
+      },
     // {
     //   path: '/pokemon',
     //   name: 'pokemon',
